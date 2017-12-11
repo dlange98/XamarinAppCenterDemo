@@ -1,18 +1,26 @@
 ﻿using System;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
-using Refapp.Interfaces;
+using Refapp.Services;
 using System.Threading.Tasks;
 using Refapp.Models;
-using Refapp.iOS.Services;
 using System.Linq;
 using UIKit;
 using Foundation;
+using Refapp.iOS.Services;
 
 [assembly: Xamarin.Forms.Dependency(typeof(AuthenticationService))]
 namespace Refapp.iOS.Services
 {
     public class AuthenticationService : IAuthenticator
     {
+        /// <summary>
+        /// IOS specific implementation to authenticate against azure AD.
+        /// </summary>
+        /// <returns>The authenticate.</returns>
+        /// <param name="authority">URL to the credentialing authority</param>
+        /// <param name="resource">App ID of the server resource</param>
+        /// <param name="clientId">Client identifier.</param>
+        /// <param name="returnUri">Redirect URI, must match the server setting.</param>
         public async Task<AuthenticateResponse> Authenticate(string authority, string resource, string clientId, string returnUri)
         {
             try
@@ -40,6 +48,7 @@ namespace Refapp.iOS.Services
                 result.Profile.GivenName = authResult.UserInfo.GivenName;
                 result.Profile.UniqueId = authResult.UserInfo.UniqueId;
 
+
                 return result;
             }
             catch (Exception ex)
@@ -49,6 +58,11 @@ namespace Refapp.iOS.Services
             }
         }
 
+        /// <summary>
+        /// Clears the token form the cookie storage
+        /// </summary>
+        /// <returns>The token.</returns>
+        /// <param name="authority">Authority.</param>
         public async Task ClearToken(string authority)
         {
             await Task.Run(() =>

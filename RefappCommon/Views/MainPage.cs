@@ -1,8 +1,11 @@
 ﻿using System;
-
+using System.Diagnostics.Contracts;
+using System.Threading.Tasks;
+using Refapp.Configuration;
+using Refapp.Services;
 using Xamarin.Forms;
 
-namespace Refapp
+namespace Refapp.Services
 {
     public class MainPage : TabbedPage
     {
@@ -42,6 +45,8 @@ namespace Refapp
             Children.Add(aboutPage);
 
             Title = Children[0].Title;
+
+         
         }
 
         protected override void OnCurrentPageChanged()
@@ -49,5 +54,7 @@ namespace Refapp
             base.OnCurrentPageChanged();
             Title = CurrentPage?.Title ?? string.Empty;
         }
+
+       
     }
 }

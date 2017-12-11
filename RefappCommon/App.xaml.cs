@@ -1,17 +1,25 @@
 ﻿using System;
-
+using System.Threading.Tasks;
+using Refapp.DAO;
+using Refapp.Configuration;
+using Refapp.Services;
 using Xamarin.Forms;
+using Refapp.Managers;
+using Refapp.Models;
 
 namespace Refapp
 {
     public partial class App : Application
     {
-        public static bool UseMockDataStore = true;
-        public static string BackendUrl = "https://localhost:5000";
+        public static bool UseMockDataStore = false;
+        public AccessTokenDAO TokenDAO;
 
         public App()
         {
             InitializeComponent();
+
+            var fileManager = DependencyService.Get<IFileManager>();
+            TokenDAO = new AccessTokenDAO(fileManager);
 
             if (UseMockDataStore)
                 DependencyService.Register<MockDataStore>();
@@ -23,5 +31,13 @@ namespace Refapp
             else
                 MainPage = new NavigationPage(new MainPage());
         }
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+            //var _ = LoginAsync();
+        }
+
+
     }
 }

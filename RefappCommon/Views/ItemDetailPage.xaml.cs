@@ -1,5 +1,6 @@
 ﻿using System;
-
+using Refapp.Models;
+using Refapp.ViewModels;
 using Xamarin.Forms;
 
 namespace Refapp

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using Refapp.Models;
+using Refapp.Services;
 using Xamarin.Forms;
 
-namespace Refapp
+namespace Refapp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

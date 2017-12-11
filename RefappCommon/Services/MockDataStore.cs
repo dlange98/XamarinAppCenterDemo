@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Refapp.Models;
 
-namespace Refapp
+namespace Refapp.Services
 {
     public class MockDataStore : IDataStore<Item>
     {

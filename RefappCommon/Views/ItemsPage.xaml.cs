@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using Refapp.Models;
+using Refapp.ViewModels;
 using Xamarin.Forms;
 
 namespace Refapp

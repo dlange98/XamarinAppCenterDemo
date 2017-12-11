@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
-namespace Refapp.iOS
+namespace Refapp.Services.iOS
 {
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
@@ -14,9 +10,6 @@ namespace Refapp.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-
-             var x = new Item();
-           
             return base.FinishedLaunching(app, options);
         }
     }

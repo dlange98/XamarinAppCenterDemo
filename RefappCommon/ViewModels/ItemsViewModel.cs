@@ -2,10 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-
+using Refapp.Models;
 using Xamarin.Forms;
 
-namespace Refapp
+namespace Refapp.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {

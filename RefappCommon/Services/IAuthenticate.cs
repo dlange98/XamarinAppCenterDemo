@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Refapp.Models;
 
-namespace Refapp.Interfaces
+namespace Refapp.Services
 {
     public interface IAuthenticator
     {
