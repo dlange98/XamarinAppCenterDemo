@@ -38,5 +38,6 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+/.vs/RefApp/v15/Server/sqlite3
 /.vs/RefApp/v15/Server/sqlite3/db.lock
 /.vs/RefApp/v15/Server/sqlite3
