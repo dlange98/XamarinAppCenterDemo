@@ -1,6 +1,6 @@
 ﻿using Foundation;
 using UIKit;
-
+// Comment
 namespace Refapp.Services.iOS
 {
     [Register("AppDelegate")]
