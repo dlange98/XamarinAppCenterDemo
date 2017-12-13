@@ -38,3 +38,5 @@ Thumbs.db
 
 # dotCover
 *.dotCover
+/.vs/RefApp/v15/Server/sqlite3
+/Services/KindredPOC.API
