@@ -30,12 +30,14 @@ namespace Refapp
                 MainPage = new MainPage();
             else
                 MainPage = new NavigationPage(new MainPage());
+
+
         }
 
         protected override void OnStart()
         {
             base.OnStart();
-            //var _ = LoginAsync();
+            TokenDAO.DeleteToken();
         }
 
 

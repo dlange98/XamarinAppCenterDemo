@@ -35,6 +35,23 @@ namespace Refapp.DAO
 			}
 		}
 
+
+        public void DeleteToken()
+        {
+            using (var db = getDBConnection())
+            {
+                try
+                {
+                    var tokens = db.Query<AccessToken>("delete from AccessToken");
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Exception deleting the currrent Access Token {ex.Message}");
+                    throw;
+                }
+            }
+        }
+
 		public void InsertOrUpdateToken(AccessToken token)
 		{
 			using (var db = getDBConnection())
