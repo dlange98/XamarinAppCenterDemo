@@ -38,16 +38,18 @@ namespace Refapp.Services
 
             if (token == null || token.TokenExpired)
             {
-                await LoginAsync();
+                token = await LoginAsync();
             }
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
             client.DefaultRequestHeaders.Add("ZUMO-API-VERSION", "2.0.0");
+            System.Diagnostics.Debug.Print("last line in updated auth token expired");
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             await UpdateAuthTokenInHeaderAsync();
+            System.Diagnostics.Debug.Print("after the await in GetItemAsync");
             if (forceRefresh && CrossConnectivity.Current.IsConnected)
             {
                 var json = await client.GetStringAsync($"api/item/");

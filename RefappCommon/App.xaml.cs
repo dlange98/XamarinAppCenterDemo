@@ -21,6 +21,8 @@ namespace Refapp
             var fileManager = DependencyService.Get<IFileManager>();
             TokenDAO = new AccessTokenDAO(fileManager);
 
+            TokenDAO.DeleteToken();
+
             if (UseMockDataStore)
                 DependencyService.Register<MockDataStore>();
             else
@@ -36,8 +38,9 @@ namespace Refapp
 
         protected override void OnStart()
         {
+           
             base.OnStart();
-            TokenDAO.DeleteToken();
+
         }
 
 
