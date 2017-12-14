@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
     ios:Page.UseSafeArea="true"  x:Class="Refapp.ItemsPage" Title="{Binding Title}" x:Name="BrowseItemsPage">
 	<ContentPage.ToolbarItems>
-		<ToolbarItem Text="Add" Clicked="AddItem_Clicked" />
+		<ToolbarItem Text="Add" Clicked="AddItem_Clicked" AutomationId="AddButton"/>
 	</ContentPage.ToolbarItems>
 	<ContentPage.Content>
 			<ListView x:Name="ItemsListView" ItemsSource="{Binding Items}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding LoadItemsCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement" ItemSelected="OnItemSelected">

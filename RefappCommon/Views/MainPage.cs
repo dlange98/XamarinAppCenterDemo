@@ -18,7 +18,7 @@ namespace Refapp.Services
                 case Device.iOS:
                     itemsPage = new NavigationPage(new ItemsPage())
                     {
-                        Title = "Browse"
+                        Title = "Browse",
                     };
 
                     aboutPage = new NavigationPage(new AboutPage())

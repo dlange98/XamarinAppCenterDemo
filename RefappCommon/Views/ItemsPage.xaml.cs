@@ -16,6 +16,7 @@ namespace Refapp
             InitializeComponent();
 
             BindingContext = viewModel = new ItemsViewModel();
+            this.AutomationId = "ItemsPage";
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

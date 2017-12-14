@@ -36,8 +36,7 @@ namespace Refapp.Services
 
             var token = TokenDAO.GetCurrentToken();
 
-            if (token == null || token.TokenExpired)
-            {
+            if (token == null || token.TokenExpired){
                 token = await LoginAsync();
             }
 
