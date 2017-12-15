@@ -21,23 +21,24 @@ namespace RefappUITest
             //    #if ENABLE_TEST_CLOUD
             //    Xamarin.Calabash.Start();
             //    #endif
-            //if (platform == Platform.Android)
-            //{
-            //    return ConfigureApp
-            //        .Android
-            //        // TODO: Update this path to point to your Android app and uncomment the
+            if (platform == Platform.Android)
+            {
+                return ConfigureApp
+                    .Android
+                    .Debug()
+                    // TODO: Update this path to point to your Android app and uncomment the
                     // code if the app is not included in the solution.
-            //        .ApkFile ("../../../Droid/bin/Debug/xamarinforms.apk")
-            //        .StartApp();
-            //}
+                    .ApkFile ("/Users/jaudibert/Documents/Cardinal/MobileRefXamarin/Droid/bin/Debug/com.cardinal.Refapp.apk")
+                    .StartApp();
+            }
 
             return ConfigureApp
                 .iOS
                 // TODO: Update this path to point to your iOS app and uncomment the
                 // code if the app is not included in the solution.
                 // NOTE: Josh A, you must change the file location to match what is on your local machine
-                .AppBundle ("../../../iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app") ///Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app
-                //.DeviceIdentifier("919CF061-A933-4ED9-99F4-1472CA364225")
+                .AppBundle ("/Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app") ///Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app
+                .DeviceIdentifier("919CF061-A933-4ED9-99F4-1472CA364225")
                 //.EnableLocalScreenshots()
                 //.Debug()
                 .StartApp();

@@ -72,7 +72,7 @@ namespace RefappUITest
 
             app.WaitForElement("ItemsPage");
             app.Screenshot("Post Add Item");
-
+            Assert.IsTrue(true);
         }
     }
 

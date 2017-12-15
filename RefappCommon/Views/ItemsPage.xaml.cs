@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Refapp.Models;
 using Refapp.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Refapp
 {
@@ -16,7 +18,13 @@ namespace Refapp
             InitializeComponent();
 
             BindingContext = viewModel = new ItemsViewModel();
+
             this.AutomationId = "ItemsPage";
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                On<iOS>().SetUseSafeArea(true);
+            }
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
