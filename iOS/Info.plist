@@ -7,7 +7,7 @@
 	<key>CFBundleName</key>
 	<string>Refapp</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.cardinal.Refapp</string>
+	<string>com.kindred.refapp</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
