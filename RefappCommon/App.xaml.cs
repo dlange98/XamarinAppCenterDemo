@@ -21,7 +21,8 @@ namespace Refapp
             var fileManager = DependencyService.Get<IFileManager>();
             TokenDAO = new AccessTokenDAO(fileManager);
 
-            TokenDAO.DeleteToken();
+          
+
 
             if (UseMockDataStore)
                 DependencyService.Register<MockDataStore>();
@@ -33,6 +34,9 @@ namespace Refapp
             else
                 MainPage = new NavigationPage(new MainPage());
 
+            // clear out current user. This will force the need to login each time the app is restarted
+            TokenDAO.DeleteToken();
+            DependencyService.Get<IAuthenticator>().ClearToken(Settings.TenantId);
 
         }
 
