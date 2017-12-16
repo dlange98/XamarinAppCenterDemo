@@ -28,7 +28,7 @@ namespace RefappUITest
                     .Debug()
                     // TODO: Update this path to point to your Android app and uncomment the
                     // code if the app is not included in the solution.
-                    .ApkFile ("/Users/jaudibert/Documents/Cardinal/MobileRefXamarin/Droid/bin/Debug/com.cardinal.Refapp.apk")
+                    .InstalledApp ("com.cardinal.Refapp")
                     .StartApp();
             }
 
@@ -37,8 +37,8 @@ namespace RefappUITest
                 // TODO: Update this path to point to your iOS app and uncomment the
                 // code if the app is not included in the solution.
                 // NOTE: Josh A, you must change the file location to match what is on your local machine
-                .AppBundle ("/Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app") ///Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app
-                .DeviceIdentifier("919CF061-A933-4ED9-99F4-1472CA364225")
+                .InstalledApp("com.kindred.refapp") ///Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app
+                .DeviceIdentifier("15D70DB8-1BCD-400B-8A65-78BBE26273F2")
                 //.EnableLocalScreenshots()
                 //.Debug()
                 .StartApp();
