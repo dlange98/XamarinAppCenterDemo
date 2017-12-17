@@ -8,8 +8,6 @@ using System;
 using System.IO;
 using Refapp.Services.iOS;
 using Xamarin.Forms;
-using SQLite.Net.Platform.XamarinIOS;
-using SQLite.Net.Interop;
 using Refapp.Managers;
 
 [assembly: Dependency(typeof(FileManager))]
@@ -50,9 +48,5 @@ namespace Refapp.Services.iOS
 			return path;
 		}
 
-		public ISQLitePlatform GetSQLPlatform()
-		{
-			return new SQLitePlatformIOS();
-		}
 	}
 }

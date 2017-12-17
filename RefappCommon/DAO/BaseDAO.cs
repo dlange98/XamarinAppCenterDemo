@@ -9,7 +9,8 @@ using System;
 using Refapp.Configuration;
 using Refapp.Managers;
 using Refapp.Models;
-using SQLite.Net;
+using SQLite;
+//using SQLite.Net.Interop;
 using Xamarin.Forms;
 
 namespace Refapp.DAO
@@ -26,7 +27,7 @@ namespace Refapp.DAO
 		protected SQLiteConnection getDBConnection()
 		{
 			var path = FileManager.GetDBPath(Settings.DBName);
-			var conn = new SQLiteConnection(FileManager.GetSQLPlatform(), path);
+            var conn = new SQLiteConnection(path);
 			return conn;
 		}
 

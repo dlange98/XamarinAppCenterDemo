@@ -2,9 +2,8 @@
 using System.IO;
 using Xamarin.Forms;
 using Refapp.Services.Droid;
-using SQLite.Net.Interop;
+//using SQLite.Net.Interop;
 using Refapp.Managers;
-using SQLite.Net.Platform.XamarinAndroid;
 
 [assembly: Dependency(typeof(FileManager))]
 namespace Refapp.Services.Droid
@@ -44,9 +43,9 @@ namespace Refapp.Services.Droid
             return path;
         }
 
-        public ISQLitePlatform GetSQLPlatform()
-        {
-            return new SQLitePlatformAndroid();
-        }
+        //public ISQLitePlatform GetSQLPlatform()
+        //{
+        //    return new SQLitePlatformAndroid();
+        //}
     }
 }

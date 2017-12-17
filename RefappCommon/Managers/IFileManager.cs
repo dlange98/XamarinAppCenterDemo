@@ -7,7 +7,7 @@
 //
 using System;
 using System.IO;
-using SQLite.Net.Interop;
+//using SQLite.Net.Interop;
 
 namespace Refapp.Managers
 {
@@ -21,9 +21,5 @@ namespace Refapp.Managers
 
 		// Pull out the filename given the path
 		string GetFileNameFromPath(string path);
-
-		// Return the platform specific SQLite implemenation
-		ISQLitePlatform GetSQLPlatform();
-
 	}
 }

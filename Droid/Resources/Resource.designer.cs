@@ -29,10 +29,6 @@ namespace Refapp.Droid
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::Refapp.Droid.Resource.Id.agentWebView;
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::Refapp.Droid.Resource.Layout.WebAuthenticationBroker;
 			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::Refapp.Droid.Resource.String.ApplicationName;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::Refapp.Droid.Resource.String.ApplicationName;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::Refapp.Droid.Resource.String.Hello;
-			global::SQLite.Net.Platform.XamarinAndroidN.Resource.String.ApplicationName = global::Refapp.Droid.Resource.String.ApplicationName;
-			global::SQLite.Net.Platform.XamarinAndroidN.Resource.String.Hello = global::Refapp.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Refapp.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3641,11 +3637,8 @@ namespace Refapp.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f09003f
-			public const int ApplicationName = 2131296319;
-			
 			// aapt resource value: 0x7f09003e
-			public const int Hello = 2131296318;
+			public const int ApplicationName = 2131296318;
 			
 			// aapt resource value: 0x7f090015
 			public const int abc_action_bar_home_description = 2131296277;

@@ -3,7 +3,7 @@
 // 6/29/2017
 // 2:24 PM
 using System;
-using SQLite.Net.Attributes;
+using SQLite;
 
 namespace Refapp.Models
 {
