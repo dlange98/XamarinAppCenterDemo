@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Refapp.DAO;
+using Refapp.Managers;
 using Refapp.Models;
 using Xamarin.Forms;
 
@@ -11,9 +13,11 @@ namespace Refapp.ViewModels
     {
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
+        private bool loggingIn;
 
         public ItemsViewModel()
         {
+            loggingIn = false;
             Title = "Browse";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
@@ -35,9 +39,10 @@ namespace Refapp.ViewModels
 
             try
             {
+                
+                var newItems = await DataStore.GetItemsAsync(true);
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
-                foreach (var item in items)
+                foreach (var item in newItems)
                 {
                     Items.Add(item);
                 }
@@ -51,5 +56,7 @@ namespace Refapp.ViewModels
                 IsBusy = false;
             }
         }
+
+
     }
 }

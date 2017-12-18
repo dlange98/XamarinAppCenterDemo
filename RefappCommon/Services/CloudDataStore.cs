@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Plugin.Connectivity;
 using Refapp.Configuration;
 using Refapp.DAO;
+using Refapp.Managers;
 using Refapp.Models;
 using Xamarin.Forms;
 
@@ -23,7 +24,8 @@ namespace Refapp.Services
 
         public CloudDataStore()
         {
-            TokenDAO = ((Refapp.App)App.Current).TokenDAO;
+            var fileManager = DependencyService.Get<IFileManager>();
+            TokenDAO = new AccessTokenDAO(fileManager);
 
             client = new HttpClient();
             client.BaseAddress = new Uri($"{Settings.AppServiceURL}/");
@@ -31,7 +33,7 @@ namespace Refapp.Services
             items = new List<Item>();
         }
 
-        private async Task UpdateAuthTokenInHeaderAsync()
+        public async Task UpdateAuthTokenInHeaderAsync()
         {
 
             var token = TokenDAO.GetCurrentToken();
@@ -128,5 +130,19 @@ namespace Refapp.Services
             TokenDAO.InsertOrUpdateToken(tokenData);
             return tokenData;
         }
+
+        public bool IsLoginNeeded()
+        {
+            var token = TokenDAO.GetCurrentToken();
+
+            if (token == null || token.TokenExpired)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+       
     }
 }

@@ -62,5 +62,17 @@ namespace Refapp.Services
         {
             return await Task.FromResult(items);
         }
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async Task UpdateAuthTokenInHeaderAsync()
+        {
+            System.Diagnostics.Debug.Print("no op in mock datastore");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        }
+
+        public bool IsLoginNeeded()
+        {
+            return false;
+        }
     }
 }

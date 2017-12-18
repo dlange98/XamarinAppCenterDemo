@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Refapp.DAO;
+﻿using Refapp.DAO;
 using Refapp.Configuration;
 using Refapp.Services;
 using Xamarin.Forms;
@@ -12,19 +10,19 @@ namespace Refapp
     public partial class App : Application
     {
         public static bool UseMockDataStore = false;
-        public AccessTokenDAO TokenDAO;
 
         public App()
         {
             InitializeComponent();
 
             var fileManager = DependencyService.Get<IFileManager>();
-            TokenDAO = new AccessTokenDAO(fileManager);
+            var TokenDAO = new AccessTokenDAO(fileManager);
 
             if (UseMockDataStore)
                 DependencyService.Register<MockDataStore>();
             else
                 DependencyService.Register<CloudDataStore>();
+
 
             if (Device.RuntimePlatform == Device.iOS)
                 MainPage = new MainPage();
@@ -40,8 +38,17 @@ namespace Refapp
         protected override void OnStart()
         {
             base.OnStart();
+            loginIfNeeded();
         }
 
+        async void loginIfNeeded() 
+        {
+            var DataStore = DependencyService.Get<IDataStore<Item>>() ?? new MockDataStore();
+            if (DataStore.IsLoginNeeded())
+            {
+                await DataStore.UpdateAuthTokenInHeaderAsync();
+            }
+        }
 
     }
 }
