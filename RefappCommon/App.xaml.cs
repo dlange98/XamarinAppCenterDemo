@@ -5,6 +5,10 @@ using Xamarin.Forms;
 using Refapp.Managers;
 using Refapp.Models;
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+
 namespace Refapp
 {
     public partial class App : Application
@@ -24,7 +28,7 @@ namespace Refapp
                 DependencyService.Register<CloudDataStore>();
 
 
-            if (Device.RuntimePlatform == Device.iOS)
+            if (Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS)
                 MainPage = new MainPage();
             else
                 MainPage = new NavigationPage(new MainPage());
@@ -38,6 +42,12 @@ namespace Refapp
         protected override void OnStart()
         {
             base.OnStart();
+
+            // app center
+            AppCenter.Start("android=4c4f4341-26f6-4b9d-b67f-77b65b337f0a;" + 
+                            "ios=29397e44-73e2-4fd1-a23f-0a32e118063f",
+                   typeof(Analytics), typeof(Crashes));
+
             loginIfNeeded();
         }
 
