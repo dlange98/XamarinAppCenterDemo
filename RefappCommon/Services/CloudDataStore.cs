@@ -13,6 +13,8 @@ using Refapp.Managers;
 using Refapp.Models;
 using Xamarin.Forms;
 
+using Microsoft.AppCenter.Analytics;
+
 namespace Refapp.Services
 {
     public class CloudDataStore : IDataStore<Item>
@@ -125,6 +127,9 @@ namespace Refapp.Services
                 TokenType = response.AccessTokenType,
                 ExpiresOn = response.ExpiresOn
             };
+
+            // track a succesfull login
+            Analytics.TrackEvent("Login completed");
 
             // persist our access token to be used for server requests
             TokenDAO.InsertOrUpdateToken(tokenData);

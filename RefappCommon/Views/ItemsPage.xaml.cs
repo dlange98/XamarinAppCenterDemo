@@ -6,6 +6,7 @@ using Refapp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Microsoft.AppCenter.Analytics;
 
 namespace Refapp
 {
@@ -25,6 +26,8 @@ namespace Refapp
             {
                 On<iOS>().SetUseSafeArea(true);
             }
+
+            Analytics.TrackEvent("View items page");
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)

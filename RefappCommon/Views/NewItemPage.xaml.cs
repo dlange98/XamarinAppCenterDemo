@@ -1,6 +1,7 @@
 ﻿using System;
 using Refapp.Models;
 using Xamarin.Forms;
+using Microsoft.AppCenter.Analytics;
 
 namespace Refapp
 {
@@ -24,6 +25,7 @@ namespace Refapp
         async void Save_Clicked(object sender, EventArgs e)
         {
             MessagingCenter.Send(this, "AddItem", Item);
+            Analytics.TrackEvent("Add New Item");
             await Navigation.PopToRootAsync();
         }
     }
