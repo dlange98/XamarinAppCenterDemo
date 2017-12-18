@@ -60,15 +60,17 @@ namespace RefappUITest
 
             //Add the item
             app.WaitForElement(c => c.Marked("ItemsPage"));
+            app.Flash(c => c.Marked("ItemsPage"));
             app.Screenshot("Pre Add Item");
-            app.Tap(c => c.Marked("AddButton"));
+            app.WaitForElement(c => c.Marked("Add"));
+            app.Tap(c => c.Marked("Add"));
 
             app.WaitForElement(c => c.Marked("NameText"));
             app.ClearText(c => c.Marked("NameText"));
             app.EnterText(c => c.Marked("NameText"), "Josh");
             app.ClearText(c => c.Marked("DescriptionText"));
             app.EnterText(c => c.Marked("DescriptionText"), "Is the best jedi");
-            app.Tap(c => c.Marked("SaveButton"));
+            app.Tap(c => c.Marked("Save"));
 
             app.WaitForElement("ItemsPage");
             app.Screenshot("Post Add Item");
