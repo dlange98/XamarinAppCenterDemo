@@ -37,7 +37,7 @@ namespace RefappUITest
             //todo: Josh A, fill in
             app.WaitForElement(c => c.Css("input#i0116"));
             app.EnterText(c => c.Css("input#i0116"), "jaudibert@cardinalsolutions.com");
-            app.Tap(c => c.Css("input#idSIButton9"));
+            app.PressEnter();
 
             app.WaitForElement(c => c.Css("#passwordInput"));
             app.EnterText(c => c.Css("#passwordInput"), "Bluedragon1!");
