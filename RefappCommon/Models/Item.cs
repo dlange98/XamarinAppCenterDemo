@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Refapp
+namespace Refapp.Models
 {
     public class Item
     {

@@ -26,6 +26,9 @@ namespace Refapp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Id.agentWebView = global::Refapp.Droid.Resource.Id.agentWebView;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.Layout.WebAuthenticationBroker = global::Refapp.Droid.Resource.Layout.WebAuthenticationBroker;
+			global::Microsoft.IdentityModel.Clients.ActiveDirectory.Resource.String.ApplicationName = global::Refapp.Droid.Resource.String.ApplicationName;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::Refapp.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -2847,6 +2850,9 @@ namespace Refapp.Droid
 			// aapt resource value: 0x7f08001e
 			public const int add = 2131230750;
 			
+			// aapt resource value: 0x7f0800b4
+			public const int agentWebView = 2131230900;
+			
 			// aapt resource value: 0x7f080058
 			public const int alertTitle = 2131230808;
 			
@@ -3012,8 +3018,8 @@ namespace Refapp.Droid
 			// aapt resource value: 0x7f080048
 			public const int list_item = 2131230792;
 			
-			// aapt resource value: 0x7f0800b5
-			public const int masked = 2131230901;
+			// aapt resource value: 0x7f0800b6
+			public const int masked = 2131230902;
 			
 			// aapt resource value: 0x7f0800a1
 			public const int media_actions = 2131230881;
@@ -3318,8 +3324,8 @@ namespace Refapp.Droid
 			// aapt resource value: 0x7f08000e
 			public const int view_offset_helper = 2131230734;
 			
-			// aapt resource value: 0x7f0800b4
-			public const int visible = 2131230900;
+			// aapt resource value: 0x7f0800b5
+			public const int visible = 2131230901;
 			
 			// aapt resource value: 0x7f080093
 			public const int volume_item_container = 2131230867;
@@ -3615,6 +3621,9 @@ namespace Refapp.Droid
 			// aapt resource value: 0x7f030043
 			public const int Toolbar = 2130903107;
 			
+			// aapt resource value: 0x7f030044
+			public const int WebAuthenticationBroker = 2130903108;
+			
 			static Layout()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -3627,6 +3636,9 @@ namespace Refapp.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f09003e
+			public const int ApplicationName = 2131296318;
 			
 			// aapt resource value: 0x7f090015
 			public const int abc_action_bar_home_description = 2131296277;

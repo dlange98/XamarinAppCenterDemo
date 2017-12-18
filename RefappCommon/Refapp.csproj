@@ -8,13 +8,20 @@
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="Xam.Plugin.Connectivity" Version="3.0.3" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.91635" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
+    <PackageReference Include="ServiceStack" Version="5.0.0" />
+    <PackageReference Include="ServiceStack.Text" Version="5.0.0" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.4.118" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="DAO\" />
+    <Folder Include="Managers\" />
+    <Folder Include="Models\Response\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\AboutPage.xaml" />
@@ -22,6 +29,10 @@
     <None Remove="Views\ItemsPage.xaml" />
     <None Remove="Views\NewItemPage.xaml" />
     <None Remove="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\BaseService.cs" />
+    <Compile Remove="Exceptions\UnauthorizedException.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\AboutPage.xaml.cs">

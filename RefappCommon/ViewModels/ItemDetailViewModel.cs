@@ -1,6 +1,7 @@
 ﻿using System;
+using Refapp.Models;
 
-namespace Refapp
+namespace Refapp.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {

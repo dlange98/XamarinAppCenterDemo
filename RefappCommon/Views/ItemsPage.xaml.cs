@@ -1,20 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using Refapp.Models;
+using Refapp.ViewModels;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Refapp
 {
     public partial class ItemsPage : ContentPage
     {
         ItemsViewModel viewModel;
-
+  
         public ItemsPage()
         {
             InitializeComponent();
 
             BindingContext = viewModel = new ItemsViewModel();
+
+            this.AutomationId = "ItemsPage";
+
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                On<iOS>().SetUseSafeArea(true);
+            }
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -37,9 +47,6 @@ namespace Refapp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
         }
     }
 }

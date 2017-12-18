@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Refapp.Models;
 
-namespace Refapp
+namespace Refapp.Services
 {
     public class MockDataStore : IDataStore<Item>
     {
@@ -60,6 +61,18 @@ namespace Refapp
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
+        }
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public async Task UpdateAuthTokenInHeaderAsync()
+        {
+            System.Diagnostics.Debug.Print("no op in mock datastore");
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        }
+
+        public bool IsLoginNeeded()
+        {
+            return false;
         }
     }
 }

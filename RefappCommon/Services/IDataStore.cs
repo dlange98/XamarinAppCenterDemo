@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Refapp
+namespace Refapp.Services
 {
     public interface IDataStore<T>
     {
@@ -10,5 +10,8 @@ namespace Refapp
         Task<bool> DeleteItemAsync(string id);
         Task<T> GetItemAsync(string id);
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+
+        Task UpdateAuthTokenInHeaderAsync();
+        bool IsLoginNeeded();
     }
 }
