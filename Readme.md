@@ -95,6 +95,8 @@ The infrastructure is composed of the following elements in the Azure Environmen
     </tr>
 </table>
 
+Logical Data Structure
+![Logical Diagram of Reference Application](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Diagram_01.png)
 *DAN Need Mobile Center and Push Notification Elements Added*
 
 ![Screenshot of Resources in Azure](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Resources.PNG)
