@@ -36,17 +36,12 @@
 </table>
 
 ## Infrastructure ## 
-The infrastructure is composed of the following elements
+The infrastructure is composed of the following elements in the Azure Environment.
 <table>
     <tr>
         <th>Resource Name</th>
         <th>Type</th>
         <th>Version</th>
-    </tr>
-<tr>
-        <td>KindredPOCAnalytics</td>
-        <td>Microsoft.OperationalInsights/workspaces</td>
-        <td></td>
     </tr>
 <tr>
         <td>OauthBackend_ApplicationInsights</td>
@@ -86,6 +81,7 @@ The infrastructure is composed of the following elements
     <tr>
         <td>a65edf37839fb441e9d71f25</td>
         <td>Microsoft.Storage/storageAccounts</td>
+        <td></td>
     </tr>
     <tr>
         <td>OAuthBackendPlan</td>
@@ -98,3 +94,31 @@ The infrastructure is composed of the following elements
         <td>functionapp</td>
     </tr>
 </table>
+*DAN Need Mobile Center and Push Notification Elements Added*
+
+## Security ##
+We followed the following procedure to establish Mobile App Security and Service Access Security
+### Securing Functions API ###
+
+### Securing Configuration - Mobile Access to API ###
+
+### Mobile : Common ###
+        
+### Mobile : IOS Specific Elements
+
+### Mobile: Andriod Specific Elements
+
+### Services ###
+
+#### Service Listing ####
+#### Architecture Diagram ####
+#### Unit Testing ####
+
+### CI/CD ###
+#### Build Definition ####
+### Testing Gateway ####
+#### Deployment ####
+
+
+
+
