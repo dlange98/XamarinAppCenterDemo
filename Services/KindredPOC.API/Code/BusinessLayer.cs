@@ -2,11 +2,10 @@
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -16,9 +15,24 @@ namespace KindredPOC.API.Code
 {
     public class BusinessLayer
     {
-        private static string key = TelemetryConfiguration.Active.InstrumentationKey = System.Environment.GetEnvironmentVariable("APPINSIGHTS_INSTRUMENTATIONKEY", EnvironmentVariableTarget.Process);
-        private static TelemetryClient telemetry = new TelemetryClient() { InstrumentationKey = key };
-        public static async Task<HttpResponseMessage> UpdateItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        private string key;
+        private TelemetryClient telemetry;
+        private Models.IDataRepository _repo;
+
+        public BusinessLayer(Models.IDataRepository Repository)
+        {
+            if (Repository == null) throw new ArgumentNullException("Repository must be supplied");
+            _repo = Repository;
+            key = "NULL";
+            telemetry = new TelemetryClient() { InstrumentationKey = key };
+        }
+
+        public async Task<HttpResponseMessage> UpdateItem(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
+        {
+            return await UpdateItem(req, log, _repo, perfTimer);
+        }
+
+        public async Task<HttpResponseMessage> UpdateItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
         {
             try
             {
@@ -54,7 +68,12 @@ namespace KindredPOC.API.Code
             }
         }
 
-        public static async Task<HttpResponseMessage> DeleteItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<HttpResponseMessage> DeleteItem(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
+        {
+            return await DeleteItem(req, log, _repo, perfTimer);
+        }
+
+        public async Task<HttpResponseMessage> DeleteItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
         {
             try
             {
@@ -117,11 +136,24 @@ namespace KindredPOC.API.Code
             }
         }
 
-        public static async Task<HttpResponseMessage> SaveItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<HttpResponseMessage> SaveItem(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
         {
+            return await SaveItem(req, log, _repo, perfTimer);
+        }
+
+        public async Task<HttpResponseMessage> SaveItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        {
+            //Validate inputs
+            if (req == null ||
+                log == null ||
+                perfTimer == null)
+            {
+                throw new ArgumentNullException("required argument not supplied");
+            }
             try
             {
                 string data = await req.Content.ReadAsStringAsync();
+                if (data == null || data.Length == 0) throw new ArgumentNullException("No item was supplied for Save");
                 Models.Item item = JsonConvert.DeserializeObject<Models.Item>(data);
 
                 if (item != null)
@@ -150,7 +182,42 @@ namespace KindredPOC.API.Code
             }
         }
 
-        public static async Task<HttpResponseMessage> GetItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        /// <summary>
+        /// validates inputs to data layer and tests for conditions/exceptions
+        /// if take is null or take == 0 then take is ignored.
+        /// skip is ignored if take is not > 0
+        /// </summary>
+        /// <param name="Repo"></param>
+        /// <param name="take"></param>
+        /// <param name="skip"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Models.Item>> GetDataRepoItems(IDataRepository Repo, int take, int skip)
+        {
+            if (take < 0) throw new System.ArgumentOutOfRangeException("take must be non-negative");
+            if (take > 0 && skip < 0) throw new System.ArgumentOutOfRangeException("skip must be non-negative if take is defined");
+            return await Task<IEnumerable<Models.Item>>.Factory.StartNew(() => { return Repo.GetItems(take, skip); });
+        }
+        /// <summary>
+        /// GetItems business layer object.  Repo is injected in constructor of class
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="log"></param>
+        /// <param name="perfTimer"></param>
+        /// <returns></returns>
+        public async Task<HttpResponseMessage> BL_GetItems(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
+        {
+            return await GetItems(req, log, _repo, perfTimer);
+        }
+
+        /// <summary>
+        /// validates request elements and tests for conditions/exceptions
+        /// </summary>
+        /// <param name="req"></param>
+        /// <param name="log"></param>
+        /// <param name="Repo"></param>
+        /// <param name="perfTimer"></param>
+        /// <returns></returns>
+        public async Task<HttpResponseMessage> GetItems(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
         {
             try
             {
@@ -166,7 +233,7 @@ namespace KindredPOC.API.Code
                 int skipint = 0;
                 int.TryParse(take, out takeint);
                 int.TryParse(skip, out skipint);
-                var items = Repo.GetItems(takeint, skipint);
+                var items = await GetDataRepoItems(_repo, takeint, skipint);
                 EventTelemetry newevent = new EventTelemetry { Name = "GetItems" };
                 newevent.Metrics.Add("GetElapsed", perfTimer.ElapsedMilliseconds);
                 newevent.Properties.Add("GetReturn", JsonConvert.SerializeObject(items, Formatting.Indented));

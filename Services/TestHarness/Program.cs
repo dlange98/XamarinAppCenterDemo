@@ -21,7 +21,7 @@ namespace TestHarness
         private static void Main(string[] args)
         {
             Console.WriteLine("processing Get request tests to API");
-
+            ClearToken(authority).Wait();
             var token = GetToken().Result;
             Item itemobj = new Item { Id = Guid.NewGuid().ToString(), Text = $"{DateTime.Now.ToString()} :: API Post from Console App", Description = "This is a post from the console App proving I can create an access token from the console" };
             Item itemn =  PostItem(token,itemobj).Result;
@@ -91,7 +91,7 @@ namespace TestHarness
                 if (authContext.TokenCache.ReadItems().Any())
                     authContext = new AuthenticationContext(authContext.TokenCache.ReadItems().First().Authority);
 
-                var authParam = new PlatformParameters(PromptBehavior.Auto);
+                var authParam = new PlatformParameters(PromptBehavior.Always);
 
                 var authResult = await authContext.AcquireTokenAsync(ResourceId, ClientId, new Uri(ReturnUrl), authParam);
                 var result = new
@@ -117,6 +117,25 @@ namespace TestHarness
                 Console.WriteLine(ex.Message);
             }
             return null;
+        }
+
+        /// <summary>
+        /// Clears the token form the cookie storage
+        /// </summary>
+        /// <returns>The token.</returns>
+        /// <param name="authority">Authority.</param>
+        public static async Task ClearToken(string authority)
+        {
+            await Task.Run(() =>
+            {
+                var authContext = new AuthenticationContext(authority);
+                authContext.TokenCache.Clear();
+
+                //foreach (var cookie in NSHttpCookieStorage.SharedStorage.Cookies)
+                //{
+                //    NSHttpCookieStorage.SharedStorage.DeleteCookie(cookie);
+                //}
+            });
         }
     }
 }
