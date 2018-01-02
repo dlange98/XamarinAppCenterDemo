@@ -13,7 +13,7 @@ namespace RefappUITest
             var x = new AboutViewModel();
 
             x.Title = "dan was here";
-            Assert.AreEqual("dn was here", x.Title);
+            Assert.AreEqual("dan was here", x.Title);
         }
     }
 }
