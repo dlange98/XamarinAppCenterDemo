@@ -25,30 +25,31 @@ namespace KindredPOC.API
         {
             telemetry.Context.Operation.Id = req.GetCorrelationId().ToString();
             telemetry.Context.Operation.Name = "KindredMobile Function API";
-            IDataRepository Repo = new DataRepository(); //TODO: setup DI
+            IDataRepository Repo = new DataRepository(); //TODO: setup DI 
+            var BL = new Code.BusinessLayer(Repo);
             System.Diagnostics.Stopwatch perfTimer = new System.Diagnostics.Stopwatch();
             perfTimer.Start();
             DateTime start = DateTime.Now;
             log.Info($"KindredMobile Function API {req.GetActionDescriptor()}");
             telemetry.TrackEvent("Item Function API called");
             telemetry.TrackMetric("Event timeline", perfTimer.ElapsedMilliseconds);
-
+           
             switch (req.Method.Method)
             {
                 case "GET":
-                    return await BusinessLayer.GetItem(req, log, Repo, perfTimer);
+                    return await BL.GetItems(req, log, Repo, perfTimer);
                     break;
 
                 case "POST":
-                    return await BusinessLayer.SaveItem(req, log, Repo, perfTimer);
+                    return await BL.SaveItem(req, log, Repo, perfTimer);
                     break;
 
                 case "DELETE":
-                    return await BusinessLayer.DeleteItem(req, log, Repo, perfTimer);
+                    return await BL.DeleteItem(req, log, Repo, perfTimer);
                     break;
 
                 case "PUT":
-                    return await BusinessLayer.UpdateItem(req, log, Repo, perfTimer);
+                    return await BL.UpdateItem(req, log, Repo, perfTimer);
                     break;
 
                 default:

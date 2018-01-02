@@ -1,11 +1,72 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace KindredPOC.API.TESTS
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+        public async Task negative_take_throws_exception()
+        {
+            //Assert
+            KindredPOC.API.Models.IDataRepository repo = new Models.MockDataRepo();
+            Code.BusinessLayer bl = new Code.BusinessLayer(repo);
+            //Act
+            
+            var items = await bl.GetDataRepoItems(repo,-3, 0);
+            //Assess
+            //notused
+
+        }
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+        public async Task negative_Skip_throws_exception()
+        {
+            //Assert
+            KindredPOC.API.Models.IDataRepository repo = new Models.MockDataRepo();
+            Code.BusinessLayer bl = new Code.BusinessLayer(repo);
+            //Act
+
+            var items = await bl.GetDataRepoItems(repo, 3,-3);
+            //Assess
+            //notused
+
+        }
+        [TestMethod]
+        [ExpectedException(typeof(System.ArgumentNullException))]
+        public async Task Null_Repo_throws_exception()
+        {
+            //Assert
+            KindredPOC.API.Models.IDataRepository repo = null;
+            Code.BusinessLayer bl = new Code.BusinessLayer(repo);
+            //Act
+
+            var items = await bl.GetDataRepoItems(repo, 3, -3);
+            //Assess
+            //notused
+
+        }
+        //[TestMethod]
+        //[ExpectedException(typeof(System.ArgumentNullException))]
+        //public async Task Null_Input_toBL_Save_throws_exception()
+        //{
+        //    //Assert
+        //    KindredPOC.API.Models.IDataRepository repo = new Models.MockDataRepo();
+        //    Code.BusinessLayer bl = new Code.BusinessLayer(repo);
+        //    HttpRequestMessage Moqreq = new HttpRequestMessage();
+        //    TraceWriter MoqLog = new MoqTraceWriter(TraceLevel.Info);
+        //    Stopwatch moqwatch = new Stopwatch();
+        //    //Act
+
+        //    var items = await bl.SaveItem(Moqreq, MoqLog, moqwatch);
+        //    //Assess
+        //    //notused
+
+        //}
         [TestMethod]
         public void SaveItemFillsInKey()
         {
@@ -40,4 +101,16 @@ namespace KindredPOC.API.TESTS
 
         }
     }
+
+    //public class MoqTraceWriter : TraceWriter
+    //{
+    //    public MoqTraceWriter(TraceLevel level) : base(level)
+    //    {
+    //    }
+
+    //    public override void Trace(TraceEvent traceEvent)
+    //    {
+    //        //does nothing
+    //    }
+    //}
 }
