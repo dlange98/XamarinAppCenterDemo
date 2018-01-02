@@ -25,11 +25,29 @@ As highlighted in the screen shot below, do the following:
 ![Screenshot of selecting Express Security](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_02.png)
 
 #### 2.4:Result ####
-This will create an app registration [Azure Active Directory -> App Registrations] in the tenant as shown
+This will create an app registration [Azure Active Directory -> App Registrations] in the tenant as shown below.
+
 ![Screenshot of App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_03.png) 
 
-And an Enterprise Application [Azure Active Directory -> Enterprise Applications] entry which allows a native app registration to reference this resource.  The circled Application ID Is the Resource ID you will use in the mobile application configuration to generate a security token.
+And an Enterprise Application [Azure Active Directory -> Enterprise Applications] entry which allows a native app registration to reference this resource.  The circled Application ID Is the <b>Resource ID</b> you will use in the mobile application configuration to generate a security token.
+
 ![Screenshot of Function API Enterprise App Listing](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_04.png)
+
+### Registering the Client ###
+The following is how we enable security for the Mobile Client and establish it has permission to use the resources registered in the previous step.
+
+#### Register a new Application in AAD  ####
+
+Create a new App Registration in AAD.  Select Native as Application type and Name it appropriatly.  Enter a placeholder Redirect URL (i.e. https://Localhost).  This will need to be matched in calls to the token provider, but no redirect will be used.
+![Screenshot of Creating new App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_05.png)
+
+Now we must ensure the correct permissions are granted the App Registration.  In the Required Permissions Tab, select ADD to include the Resource Registered in the previous step.  Once included in the API List, ensure Delegated Permissions includes Access to the Resource
+
+![Screenshot of adding Permissions to new Client App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_06.png)
+
+The Client ID required for token generation is the Application ID of the new Registration, as indicated below.
+
+![Screenshot of Client ID in App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_07.png)
 
 ### 3.0 CORS ###
 Currently CORS is set to "*" which allows all.  For mobile use with authentication CORS is not applicable.
