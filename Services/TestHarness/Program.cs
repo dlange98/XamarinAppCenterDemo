@@ -12,9 +12,9 @@ namespace TestHarness
 {
     internal class Program
     {
-        private static string authority = "https://login.windows.net/414efc33-68fe-4520-802f-aea4401192d0";
-        public static string ResourceId = "1c96f60e-5d95-47b0-b113-a1837b99f623";
-        public static string ClientId = "8d08c14d-1fab-4cbc-8766-b02816e8589a";
+        private static string authority = "https://login.windows.net/414efc33-68fe-4520-802f-aea4401192d0";//<=specific to Cardinal.  substitute your Tenant Id
+        public static string ResourceId = "1c96f60e-5d95-47b0-b113-a1837b99f623"; //<= Specific for the App Registration; OAuthBackend Application ID
+        public static string ClientId = "8d08c14d-1fab-4cbc-8766-b02816e8589a";//<= Specific for the App Registration; OAuthMobileApp Application ID
         public static string ReturnUrl = $"https://localhost";
         public static TokenStore _TS = new TokenStore();
 
