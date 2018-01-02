@@ -13,5 +13,8 @@ namespace Refapp.Configuration
         public static string ResourceId = "1c96f60e-5d95-47b0-b113-a1837b99f623";
         public static string ClientId = "8d08c14d-1fab-4cbc-8766-b02816e8589a";
         public static string ReturnUrl = $"https://localhost";
+
+        /* Settings for App Center */
+
     }
 }

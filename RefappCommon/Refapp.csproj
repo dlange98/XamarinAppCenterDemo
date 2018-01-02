@@ -23,7 +23,6 @@
     <Folder Include="Views\" />
     <Folder Include="Configuration\" />
     <Folder Include="DAO\" />
-    <Folder Include="Managers\" />
     <Folder Include="Models\Response\" />
   </ItemGroup>
   <ItemGroup>
