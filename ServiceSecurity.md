@@ -49,5 +49,5 @@ The Client ID required for token generation is the Application ID of the new Reg
 
 ![Screenshot of Client ID in App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_07.png)
 
-### 3.0 CORS ###
+### 3.0 CORS for Service API ###
 Currently CORS is set to "*" which allows all.  For mobile use with authentication CORS is not applicable.
