@@ -1,38 +1,15 @@
-# Reference Architecture Walkthrough
+# Services Reference Architecture Walkthrough
 
 ## Contents
 
 Topic           | Page
 --------------- | ----
-Infrastructure  |
+Service Architecture  | [Service Architecture Doc](./Infrastructure.md)
 Security        |
-Mobile : Common |
-Mobile : IOS    |
-Mobile: Andriod |
+Mobile          | [Mobile Architecture Doc](./MOBILE.md)
 Services        |
-CI/CD           |
-
-## Infrastructure
-
-The infrastructure is composed of the following elements in the Azure Environment.
-
-Resource Name                            | Type                                     | Version
----------------------------------------- | ---------------------------------------- | -----------
-OauthBackend_ApplicationInsights         | microsoft.insights/components            |
-ApplicationInsights(KindredPOCAnalytics) | Microsoft.OperationsManagement/solutions |
-NetworkMonitoring(KindredPOCAnalytics)   | Microsoft.OperationsManagement/solutions |
-ServiceMap(KindredPOCAnalytics)          | Microsoft.OperationsManagement/solutions |
-KindredPOCAnalytics                      | Microsoft.OperationalInsights/workspaces |
-kindredpoc                               | Microsoft.Sql/servers                    | v12.0
-kindredpoc/KindredPOC                    | Microsoft.Sql/servers/databases          | v12.0,user
-a65edf37839fb441e9d71f25                 | Microsoft.Storage/storageAccounts        |
-OAuthBackendPlan                         | Microsoft.Web/serverFarms                | functionapp
-OAuthBackend                             | Microsoft.Web/sites                      | functionapp
-
-Logical Data Structure ![Logical Diagram of Reference Application](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Diagram_01.png) _DAN Need Mobile Center and Push Notification Elements Added_
-
-![Screenshot of Resources in Azure](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Resources.PNG)
-
+CI/CD           | [DevOps Doc](./DevOps.md)
+## Service Architecture
 ## Security
 
 We followed the following procedure to establish Mobile App Security and Service Access Security
