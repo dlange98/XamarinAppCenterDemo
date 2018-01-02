@@ -5,17 +5,27 @@
 Topic           | Page
 --------------- | ----
 Service Architecture  | [Service Architecture Doc](./Infrastructure.md)
-Security        |
+Security        | [Security Doc](./ServiceSecurity.md)
 Mobile          | [Mobile Architecture Doc](./MOBILE.md)
-Services        |
-CI/CD           | [DevOps Doc](./DevOps.md)
+Services        | [Service Layer Doc](./Services.md)
+Persistence        | [Service Persistance Doc](./ServiceDataLayer.md)
+Monitoring        | [Service Monitoring Doc](./ServiceMonitoring.md)
+DevOps           | [DevOps Doc](./DevOps.md)
 ## Service Architecture
+[Please Reference the Architecture Sub Document](./Infrastructure.md)
+
 ## Security
-
-We followed the following procedure to establish Mobile App Security and Service Access Security
-
-Step 1: Select Express Security for the Functions App in Azure ![Screenshot of Function Platform Features](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_01.png) Step 2: Select Express ![Screenshot of selecting Express Security](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_02.png) This will create an app registration [Azure Active Directory -> App Registrations] in the tenant ![Screenshot of App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_03.png) And an Enterprise Application [Azure Active Directory -> Enterprise Applications] entry which allows a native app registration to reference this resource ![Screenshot of Function API Enterprise App Listing](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_04.png)
+[The Servie Security description can be found here](./ServiceSecurity.md)  Mobile Client security will be described in the mobile client description.
 
 ## Mobile Client Architecture
 
 The [Mobile Architecture Doc](./MOBILE.md) contains the documentation for the Mobile Clients.
+
+## Services
+The underlying service layer is implemented using Azure Functions, Entity Framework, and SQL Server. [The service layer is described here](./Services.md)
+Service Health and Operation is monitored using Application Insights and 
+
+### Data Layer / Persistance ###
+### Service Monitoring ###
+
+## DevOps
