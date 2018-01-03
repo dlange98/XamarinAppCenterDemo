@@ -21,19 +21,21 @@ namespace RefappUITest
         }
 
         [Test()]
-        public async Task SettingOrderPropertyShouldRaisePropertyChanged()
+        // Test that a property change on a view model is raising a property changed is raising a 
+        // property change event
+        public async Task SettingIsBusyPropertyShouldRaisePropertyChanged()
         {
             bool invoked = false;
-            var baseViewModel = new AboutViewModel();
+            var aboutViewModel = new AboutViewModel();
 
-            baseViewModel.PropertyChanged += (sender, e) =>
+            aboutViewModel.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName.Equals("IsBusy"))
                     invoked = true;
                 Assert.True(true);
             };
 
-            baseViewModel.IsBusy = true;
+            aboutViewModel.IsBusy = true;
 
             await Task.Delay(500);
 
