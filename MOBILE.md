@@ -1,10 +1,10 @@
 # RefApp Mobile Clients Architecture Guide
 
-## Client Project Structure
+## Client Solution Structure
 
 The mobile apps consists of four projects:
 
-- `RefApp` - The bulk of the reusable code. This is the main forms project, that should contain 95 percent of the code both for the IOS and the Android projects. Note this project is configured as a .net 2.0 standard library.
+- `RefApp` - The bulk of the reusable code. This is the main forms project, that contains 95 percent of the code both for the IOS and the Android projects. Note this project is configured as a .net 2.0 standard library.
 - `RefApp.Droid` - The Android platform specific code
 - `RefApp.IOS` - The IOS platform specific code
 - `RefAppUITTest` - The code for the UI Tests
@@ -41,9 +41,8 @@ The following packages where added to the project in addition to the packages ad
 - `Microsoft.AppCenter.Analytics` - AppCenter Analytics
 - `Microsoft.AppCenter.Crashes` - AppCenter crash reporting.
 - `Newtonsoft.Json` - JSON marshaling Library
-- `Service.Stack` - Client side http requests framework
 - `sqlite-net.pcl (1.4.118)` - local db persistence. Note the version number and case, there are a number of sqlite frameworks in NuGet. This is the Frank A Krueger version.
-- `Xam.Plugin.Connectivity` - API to obtain network information such as connection availability etc.
+- `Xam.Plugin.Connectivity` - API to obtain network information such as connection availability.
 
 ### Additional Packages added to the Android and iOS projects
 
@@ -116,38 +115,67 @@ After the user has successfully completed the login process, the login dialog is
  AccessToken = authResult.AccessToken
 ```
 
+Note the _LoginAsync_ method in the `CloudDataStore.cs` class persists the token to the local data store after a successful login. This token is then retrieved from the data store and placed in the header, before each server api call, in the method _UpdateAuthHeaderToken_. Note the following code where the auth token is being updated:
+
+```
+client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
+```
+
 ### Security Configuration
 
 The settings.cs file contains the configuration for security. The following elements need to be configured:
 
 - `TenateId` - This is the ID of the Azure Tenant. It can be found in the Azure ActiveDirectory portal under properties.
 - `ResourceId` - The is the id of the server side API project resource. The individual who set's up the server API can provide this information.
-- `ClientId` - A client resource is configured on azure.
+- `ClientId` - A _client resource_ is configured on azure. Please see the server documentation for more information about this value.
+- `ReturnUrl` - This value can be any valid url. It must match the value that's configured on Azure for the _client resource_.
 
-## API Docs
+## HTTP requests
 
-### Securing Functions API
+The `CloudDataStore.cs` file in the Forms project contains the code to invoke the server API's. Note we are using the standard .net _HTTPClient_ to invoke the server API's. JSON is marshaled via the _Newtonsoft.Json_ library.
 
-### Securing Configuration - Mobile Access to API
+### Unmarshaling objects
 
-### Mobile : Common
+The following two lines of code demonstrate invoking the 'item' api:
 
-### Mobile : IOS Specific Elements
+```
+  var json = await client.GetStringAsync($"api/item/");
+  items = await Task.Run(() => JsonConvert.DeserializeObject<IEnumerable<Item>>(json));
+```
 
-### Mobile: Andriod Specific Elements
+Note the JSON is unmarshalled to _item_ objects. Also note the item object is a plain C# object.
 
-### Services
+### Marshaling objects
 
-#### Service Listing
+The following code demonstrates marshaling an item object to JSON and then invoking the _item api_:
 
-#### Architecture Diagram
+```
+var serializedItem = JsonConvert.SerializeObject(item);
+var response = await client.PostAsync($"api/item", new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+```
 
-#### Unit Testing
+## Local Persistance
 
-### CI/CD
+Local persistence in the Android and iOS apps are using the sqlite database. In this application the access token is being persisted to sqlite via the `AccessTokenDAO`. Note the following lines of code persist the token object:
 
-#### Build Definition
+```
+...
+var db = getDBConnection();
+db.BeginTransaction();
+db.Insert(token);
+db.Commit();
+...
+```
 
-### Testing Gateway
+The _getDBConnection_ method is implemented in the `BaseDAO.cs` class.
 
-#### Deployment
+```
+protected SQLiteConnection getDBConnection()
+{
+  var path = FileManager.GetDBPath(Settings.DBName);
+  var conn = new SQLiteConnection(path);
+    return conn;
+}
+```
+
+The `FileManager` code needs to be implemented in the native project for iOS and Android. This is due to the fact we are accessing the native file system of each platform. The [_Xamarin Dependency service_](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/dependency-service/introduction/) is being used to ensure the correct code is being called for each platform.
