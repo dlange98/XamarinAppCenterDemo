@@ -57,7 +57,7 @@ To run the test from the IDE simple select the _NUnit test view_ and right click
 
 ### Running the tests as part of the build.
 
-Select _test on a real device_ will run the UITests on a real device during the build process. Note the NUnit tests are automatically ran during the build process.
+At this time you are not able to run unit tests as part of the automated build on App Center. However, you could create a separate project for NUnit tests and run the tests in as part as a VSTS build. See [Unit Test](https://docs.microsoft.com/en-us/vsts/build-release/test/getting-started-with-continuous-testing)
 
 ## App Center - Test Cloud
 
