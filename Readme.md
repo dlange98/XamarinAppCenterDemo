@@ -1,4 +1,4 @@
-# Services Reference Architecture Walkthrough
+# Reference Architecture Walkthrough
 
 ## Contents
 
@@ -19,11 +19,11 @@ Mobile DevOps        | [Mobile Dev Ops](./MOBILE_DEV_OPS.md)
 
 ## Security
 
-[The Servie Security description can be found here](./ServiceSecurity.md) Mobile Client security will be described in the mobile client description.
+The Service Security description can be found here: [[Security Doc](./ServiceSecurity.md)]. Mobile Client security will be described in the mobile client description.
 
 ## Services
 
-The underlying service layer is implemented using Azure Functions, Entity Framework, and SQL Server. [The service layer is described here](./Services.md) Service Health and Operation is monitored using Application Insights and
+The underlying service layer is implemented using Azure Functions, Entity Framework, and SQL Server. The service layer is described here: [[Service Layer Doc](./Services.md)]. Service Health and Operation is monitored using Application Insights and
 
 ### Data Layer / Persistance
 SQL Server is used for the Persistance Layer, with Entity Framework managing the ORM.

@@ -245,7 +245,7 @@ namespace KindredPOC.API.Code
             {
                 log.Info($"Fail get");
                 telemetry.TrackException(ex);//Is this done by framework?  look for duplicate entries in log
-                return req.CreateErrorResponse(HttpStatusCode.BadGateway, ex);
+                return req.CreateErrorResponse(HttpStatusCode.BadGateway, ex.Message);
             }
         }
     }

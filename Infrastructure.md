@@ -1,8 +1,8 @@
 
-## Infrastructure
+## Infrastructure Listing
 
 The infrastructure is composed of the following elements in the Azure Environment.
-
+# !!! Regen List FOR Kindred Azure Environment !!!
 Resource Name                            | Type                                     | Version
 ---------------------------------------- | ---------------------------------------- | -----------
 OauthBackend_ApplicationInsights         | microsoft.insights/components            |
