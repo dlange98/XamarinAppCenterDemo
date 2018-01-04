@@ -26,9 +26,9 @@ Mobile DevOps        | [Mobile Dev Ops](./MOBILE_DEV_OPS.md)
 The underlying service layer is implemented using Azure Functions, Entity Framework, and SQL Server. [The service layer is described here](./Services.md) Service Health and Operation is monitored using Application Insights and
 
 ### Data Layer / Persistance
-
+SQL Server is used for the Persistance Layer, with Entity Framework managing the ORM.
 ### Service Monitoring
-
+Azure Application Insights
 ## DevOps
 
 ## Mobile Client Architecture

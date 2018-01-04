@@ -2,7 +2,7 @@
 
 Best Practice is to secure services in azure with a Identity Management provider.  This reference uses Azure Active Directory (AAD).  In order to access the services secured through AAD a Security Token must be generated from the users credentials via AAD.
 
-The following procedure to establishes the specific registrations that define which resources and permissions a user can access via the registered mobile application.
+The following procedure establishes the specific registrations that define which resources and permissions a user can access via the registered mobile application.
 
 Key Elements necessary for Token Generation :
 <ul>
@@ -17,11 +17,11 @@ The following is how we enable security for the Azure Functions API and register
 In Azure select the Functions API Application Resource.  In the Application Blade (shown below) select the authentication / Authorization menu item.
 ![Screenshot of Function Platform Features](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_01.png)
 
-#### Step 2: Select Express ####
+#### Step 2: Select Express Management Mode####
 As highlighted in the screen shot below, do the following:
 ##### 2.1 Turn on the Authorization feature (1) #####
 ##### 2.2 Select Azure Active Directory from the listed providers (2) #####
-##### 2.3 Configure Azure Active Directory by selecting <i>Express</i> (3) ######
+##### 2.3 Configure Azure Active Directory by selecting <i>Express</i> (3) Management mode ######
 ![Screenshot of selecting Express Security](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_02.png)
 
 #### 2.4:Result ####
@@ -45,7 +45,7 @@ Now we must ensure the correct permissions are granted the App Registration.  In
 
 ![Screenshot of adding Permissions to new Client App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_06.png)
 
-The Client ID required for token generation is the Application ID of the new Registration, as indicated below.
+The Client ID required for token generation is the Application ID of the new Registration, as indicated below.  This will be needed to allow the mobile client to aquire the security token
 
 ![Screenshot of Client ID in App Registration](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Security_07.png)
 
