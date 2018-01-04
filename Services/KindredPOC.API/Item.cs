@@ -41,20 +41,77 @@ namespace KindredPOC.API
                     break;
 
                 case "POST":
-                    return await BL.SaveItem(req, log, Repo, perfTimer);
-                    break;
-
+                    try
+                    {
+                        string data = await req.Content.ReadAsStringAsync();
+                        if (data == null || data.Length == 0) throw new ArgumentNullException("No item was supplied for Save");
+                        Models.Item item = JsonConvert.DeserializeObject<Models.Item>(data);
+                        var saveditem =  await BL.SaveItem(item, Repo, perfTimer);
+                        if (saveditem!=null)
+                        {
+                            return req.CreateResponse(HttpStatusCode.OK, saveditem);
+                        }
+                        else
+                        {
+                            return req.CreateResponse(HttpStatusCode.BadRequest, item);
+                        }
+                    }
+                    catch(Newtonsoft.Json.JsonSerializationException jsonex)
+                    {
+                        telemetry.TrackException(jsonex);
+                        return req.CreateResponse(HttpStatusCode.BadRequest, "Could not read submitted Item");
+                    }
+                    catch (Exception ex)
+                    {
+                        telemetry.TrackException(ex);
+                        return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                    }
+                    
                 case "DELETE":
-                    return await BL.DeleteItem(req, log, Repo, perfTimer);
-                    break;
-
+                    try
+                    {
+                        string Id = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "Id", true) == 0).Value;
+                        dynamic data = await req.Content.ReadAsAsync<object>();
+                        Id = Id ?? data?.Id;
+                        if (Id == null)
+                        {
+                            return req.CreateResponse(HttpStatusCode.BadRequest, "Please pass an Id on the query string or in the request body");
+                        }
+                        bool Success = await BL.DeleteItem(Id, Repo, perfTimer);
+                        if (Success)
+                        {
+                            return req.CreateResponse(HttpStatusCode.OK, Id);
+                        }
+                        else
+                        {
+                            return req.CreateResponse(HttpStatusCode.BadRequest, Id);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                    }
                 case "PUT":
-                    return await BL.UpdateItem(req, log, Repo, perfTimer);
-                    break;
-
+                    try
+                    {
+                        string data = await req.Content.ReadAsStringAsync();
+                        Models.Item item = JsonConvert.DeserializeObject<Models.Item>(data);
+                        bool Success =  await BL.UpdateItem(item, Repo, perfTimer);
+                        if(Success)
+                        {
+                            return req.CreateResponse(HttpStatusCode.OK, item);
+                        }
+                        else
+                        {
+                            return req.CreateResponse(HttpStatusCode.BadRequest, item);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                    }
                 default:
                     return req.CreateResponse(HttpStatusCode.InternalServerError, "Action Not Identified");
-                    break;
             }
         }
 
