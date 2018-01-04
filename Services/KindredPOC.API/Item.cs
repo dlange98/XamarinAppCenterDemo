@@ -37,7 +37,29 @@ namespace KindredPOC.API
             switch (req.Method.Method)
             {
                 case "GET":
-                    return await BL.GetItems(req, log, Repo, perfTimer);
+                    try
+                    {
+                        string take = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "take", true) == 0).Value;
+                        string skip = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "skip", true) == 0).Value;
+                        // Get request body
+                        dynamic data = await req.Content.ReadAsAsync<object>();
+
+                        // Set name to query string or body data
+                        take = take ?? data?.take;
+                        skip = skip ?? data?.skip;
+                        int takeint = 0;
+                        int skipint = 0;
+                        int.TryParse(take, out takeint);
+                        int.TryParse(skip, out skipint);
+
+                        System.Collections.Generic.List<Models.Item> items = await BL.GetItems(Repo, perfTimer, takeint, skipint);
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
+                   
                     break;
 
                 case "POST":

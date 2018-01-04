@@ -229,9 +229,9 @@ namespace KindredPOC.API.Code
         /// <param name="log"></param>
         /// <param name="perfTimer"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> BL_GetItems(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<IEnumerable<Models.Item>> BL_GetItems(System.Diagnostics.Stopwatch perfTimer, int take, int skip)
         {
-            return await GetItems(req, log, _repo, perfTimer);
+            return await GetItems(_repo, perfTimer, take, skip);
         }
 
         /// <summary>
@@ -242,35 +242,36 @@ namespace KindredPOC.API.Code
         /// <param name="Repo"></param>
         /// <param name="perfTimer"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> GetItems(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<IEnumerable<Models.Item>> GetItems(IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer, int take = 0, int skip = 0)
         {
+            if (Repo == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply repository");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (perfTimer == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply perf");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
             try
             {
-                string take = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "take", true) == 0).Value;
-                string skip = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "skip", true) == 0).Value;
-                // Get request body
-                dynamic data = await req.Content.ReadAsAsync<object>();
-
-                // Set name to query string or body data
-                take = take ?? data?.take;
-                skip = skip ?? data?.skip;
-                int takeint = 0;
-                int skipint = 0;
-                int.TryParse(take, out takeint);
-                int.TryParse(skip, out skipint);
-                var items = await GetDataRepoItems(_repo, takeint, skipint);
+                var items = await GetDataRepoItems(_repo, take, skip);
                 EventTelemetry newevent = new EventTelemetry { Name = "GetItems" };
                 newevent.Metrics.Add("GetElapsed", perfTimer.ElapsedMilliseconds);
                 newevent.Properties.Add("GetReturn", JsonConvert.SerializeObject(items, Formatting.Indented));
                 telemetry.TrackEvent(newevent);
                 telemetry.TrackMetric("GetElapsed", perfTimer.ElapsedMilliseconds);
-                return req.CreateResponse(HttpStatusCode.OK, items, "application/json");
+                return items;
             }
             catch (Exception ex)
             {
-                log.Info($"Fail get");
-                telemetry.TrackException(ex);//Is this done by framework?  look for duplicate entries in log
-                return req.CreateErrorResponse(HttpStatusCode.BadGateway, ex.Message);
+                telemetry.TrackException(ex);
+                throw;
             }
         }
     }
