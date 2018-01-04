@@ -48,6 +48,9 @@
     <Reference Include="Refapp">
       <HintPath>..\RefappCommon\bin\Release\netstandard2.0\Refapp.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tests.cs" />
