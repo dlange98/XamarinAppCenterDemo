@@ -7,24 +7,22 @@ using Refapp.Services;
 
 namespace RefappNUnit
 {
-    [TestFixture]
+    [TestFixture()]
     public class UnitTest
     {
-        [Test]
+        [Test()]
         public void TestCase()
         {
             var x = new AboutViewModel();
 
             x.Title = "dan was here";
-            Assert.AreEqual("dan was here", x.Title);
-            return;
+            Assert.AreEqual("dan was here sude ", x.Title);
         }
 
-
+        [Test()]
         // Test that a property change on a view model is raising a property changed is raising a 
         // property change event
-        [Test]
-        public void SettingIsBusyPropertyShouldRaisePropertyChanged()
+        public async Task SettingIsBusyPropertyShouldRaisePropertyChanged()
         {
             bool invoked = false;
             var aboutViewModel = new AboutViewModel();
@@ -34,20 +32,17 @@ namespace RefappNUnit
                 if (e.PropertyName.Equals("IsBusy"))
                     invoked = true;
                 Assert.True(true);
-                return;
             };
 
             aboutViewModel.IsBusy = true;
 
-            Task.Delay(500);
+            await Task.Delay(500);
 
             if (invoked == false)
             {
                 Assert.True(false);
-                return;
             }
 
-            return;
         }
     }
 }
