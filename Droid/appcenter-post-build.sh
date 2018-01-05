@@ -9,3 +9,4 @@ find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*\RefApp\.NUnitTest\.dll' -exec n
 echo
 echo "-= nUnit test result: =-"
 find $APPCENTER_SOURCE_DIRECTORY -name 'TestResult.xml' -exec cat {} \;
+exit 1
