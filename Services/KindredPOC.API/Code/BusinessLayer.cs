@@ -27,137 +27,170 @@ namespace KindredPOC.API.Code
             telemetry = new TelemetryClient() { InstrumentationKey = key };
         }
 
-        public async Task<HttpResponseMessage> UpdateItem(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<bool> UpdateItem(Models.Item item, System.Diagnostics.Stopwatch perfTimer)
         {
-            return await UpdateItem(req, log, _repo, perfTimer);
+            return await UpdateItem(item, _repo, perfTimer);
         }
 
-        public async Task<HttpResponseMessage> UpdateItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<bool> UpdateItem(Models.Item item, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
         {
+            if (item == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply item value");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (Repo == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply repository");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (perfTimer == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply perf");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
             try
             {
-                string data = await req.Content.ReadAsStringAsync();
-                Models.Item item = JsonConvert.DeserializeObject<Models.Item>(data);
+                var newitem = await Repo.UpdateItemAsync(item);
+                EventTelemetry newevent = new EventTelemetry { Name = "UpdateItem" };
+                newevent.Metrics.Add("UpdateElapsed", perfTimer.ElapsedMilliseconds);
+                newevent.Properties.Add("UpdatedItem", JsonConvert.SerializeObject(newitem, Formatting.Indented));
+                telemetry.TrackEvent(newevent);
+                telemetry.TrackMetric("UpdateElapsed", perfTimer.ElapsedMilliseconds);
+            }
+            catch (ArgumentException Aex)
+            {
+                telemetry.TrackException(Aex);
+                //Id was not found
+                return false; // or re throw if error handling at higher level
+            }
+            catch (Exception ex)
+            {
+                telemetry.TrackException(ex);
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<bool> DeleteItem(string Id, System.Diagnostics.Stopwatch perfTimer)
+        {
+            return await DeleteItem(Id, _repo, perfTimer);
+        }
+
+        public async Task<bool> DeleteItem(string Id, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        {
+            if (Id == null || Id.Length == 0)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply item value");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (Repo == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply repository");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (perfTimer == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply perf");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            try
+            {
+                Models.Item item = await Repo.GetItemAsync(Id);
                 if (item != null)
                 {
+                    bool success = false;
                     try
                     {
-                        var newitem = await Repo.UpdateItemAsync(item);
-                        EventTelemetry newevent = new EventTelemetry { Name = "UpdateItem" };
-                        newevent.Metrics.Add("UpdateElapsed", perfTimer.ElapsedMilliseconds);
-                        newevent.Properties.Add("UpdatedItem", JsonConvert.SerializeObject(newitem, Formatting.Indented));
+                        success = await Repo.DeleteItemAsync(Id);
+                        EventTelemetry newevent = new EventTelemetry { Name = "DeleteItem" };
+                        newevent.Metrics.Add("SaveElapsed", perfTimer.ElapsedMilliseconds);
+                        newevent.Properties.Add("DeletedItem", JsonConvert.SerializeObject(item, Formatting.Indented));
                         telemetry.TrackEvent(newevent);
-                        telemetry.TrackMetric("UpdateElapsed", perfTimer.ElapsedMilliseconds);
+                        telemetry.TrackMetric("DeleteElapsed", perfTimer.ElapsedMilliseconds);
                     }
                     catch (ArgumentException Aex)
                     {
                         //Id was not found
-                        return req.CreateErrorResponse(HttpStatusCode.BadRequest, Aex);
+                        return false;
                     }
                     catch (Exception ex)
                     {
-                        return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                        telemetry.TrackException(ex);
+                        return false;
                     }
-                }
-                return req.CreateResponse(HttpStatusCode.OK, item);
-            }
-            catch (Exception ex)
-            {
-                log.Info($"Fail Post {ex.Message}");
-                return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
-            }
-        }
-
-        public async Task<HttpResponseMessage> DeleteItem(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
-        {
-            return await DeleteItem(req, log, _repo, perfTimer);
-        }
-
-        public async Task<HttpResponseMessage> DeleteItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
-        {
-            try
-            {
-                string Id = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "Id", true) == 0).Value;
-
-                // Get request body
-                dynamic data = await req.Content.ReadAsAsync<object>();
-
-                // Set name to query string or body data
-                Id = Id ?? data?.Id;
-
-                if (Id == null)
-                {
-                    return req.CreateResponse(HttpStatusCode.BadRequest, "Please pass an Id on the query string or in the request body");
-                }
-                else
-                {
-                    Models.Item item = await Repo.GetItemAsync(Id);
-                    if (item != null)
+                    if (success)
                     {
-                        bool success = false;
-                        try
-                        {
-                            success = await Repo.DeleteItemAsync(Id);
-                            EventTelemetry newevent = new EventTelemetry { Name = "DeleteItem" };
-                            newevent.Metrics.Add("SaveElapsed", perfTimer.ElapsedMilliseconds);
-                            newevent.Properties.Add("DeletedItem", JsonConvert.SerializeObject(item, Formatting.Indented));
-                            telemetry.TrackEvent(newevent);
-                            telemetry.TrackMetric("DeleteElapsed", perfTimer.ElapsedMilliseconds);
-                        }
-                        catch (ArgumentException Aex)
-                        {
-                            //Id was not found
-                            return req.CreateErrorResponse(HttpStatusCode.BadRequest, Aex);
-                        }
-                        catch (Exception ex)
-                        {
-                            log.Info($"Bad Item Post Object");
-                            return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
-                        }
-                        if (success)
-                        {
-                            return req.CreateResponse(HttpStatusCode.OK);
-                        }
-                        else
-                        {
-                            return req.CreateResponse(HttpStatusCode.InternalServerError, "Delete Not Successful");
-                        }
+                        return true;
                     }
                     else
                     {
-                        return req.CreateResponse(HttpStatusCode.NotFound, $"{Id} could not be found in database");
+                        EventTelemetry newevent = new EventTelemetry { Name = "DeleteFail" };
+                        newevent.Properties.Add("ItemId", Id);
+                        newevent.Properties.Add("FailReason", "Unknown - Repo reports Failure");
+                        telemetry.TrackEvent(newevent);
+                        return false;
                     }
+                }
+                else
+                {
+                    EventTelemetry newevent = new EventTelemetry { Name = "DeleteFail" };
+                    newevent.Properties.Add("ItemId", Id);
+                    newevent.Properties.Add("FailReason", $"No item with Id {Id} returned from data store");
+                    telemetry.TrackEvent(newevent);
+                    return false;
                 }
             }
             catch (Exception ex)
             {
-                log.Info($"Fail Delete {ex.Message}");
-                return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                telemetry.TrackException(ex);
+                throw ex;
             }
         }
 
-        public async Task<HttpResponseMessage> SaveItem(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<Models.Item> SaveItem(Models.Item item, System.Diagnostics.Stopwatch perfTimer)
         {
-            return await SaveItem(req, log, _repo, perfTimer);
+            return await SaveItem(item, _repo, perfTimer);
         }
 
-        public async Task<HttpResponseMessage> SaveItem(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<Models.Item> SaveItem(Models.Item item, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
         {
             //Validate inputs
-            if (req == null ||
-                log == null ||
-                perfTimer == null)
+            if (item == null)
             {
-                throw new ArgumentNullException("required argument not supplied");
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply item value");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (Repo == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply repository");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (perfTimer == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply perf");
+                telemetry.TrackException(nex);
+                throw nex;
             }
             try
             {
-                string data = await req.Content.ReadAsStringAsync();
-                if (data == null || data.Length == 0) throw new ArgumentNullException("No item was supplied for Save");
-                Models.Item item = JsonConvert.DeserializeObject<Models.Item>(data);
-
-                if (item != null)
-                {
                     var saveditem = await Repo.CreateItemAsync(item);
                     EventTelemetry newevent = new EventTelemetry { Name = "GetItems" };
                     newevent.Metrics.Add("SaveElapsed", perfTimer.ElapsedMilliseconds);
@@ -165,20 +198,12 @@ namespace KindredPOC.API.Code
                     newevent.Properties.Add("PostReturn", JsonConvert.SerializeObject(saveditem, Formatting.Indented));
                     telemetry.TrackEvent(newevent);
                     telemetry.TrackMetric("SaveElapsed", perfTimer.ElapsedMilliseconds);
-                }
-                else
-                {
-                    log.Info($"Bad Item Post Object");
-
-                    return req.CreateResponse(HttpStatusCode.BadRequest, "Could not read submitted Item");
-                }
-
-                return req.CreateResponse(HttpStatusCode.OK, item);
+                return saveditem;
             }
             catch (Exception ex)
             {
-                log.Info($"Fail Post {ex.Message}");
-                return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
+                telemetry.TrackException(ex);
+                throw ex;
             }
         }
 
@@ -191,7 +216,7 @@ namespace KindredPOC.API.Code
         /// <param name="take"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Models.Item>> GetDataRepoItems(IDataRepository Repo, int take, int skip)
+        public async Task<IEnumerable<Models.Item>> GetItems(IDataRepository Repo, int take, int skip)
         {
             if (take < 0) throw new System.ArgumentOutOfRangeException("take must be non-negative");
             if (take > 0 && skip < 0) throw new System.ArgumentOutOfRangeException("skip must be non-negative if take is defined");
@@ -204,9 +229,11 @@ namespace KindredPOC.API.Code
         /// <param name="log"></param>
         /// <param name="perfTimer"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> BL_GetItems(HttpRequestMessage req, TraceWriter log, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<IEnumerable<Models.Item>> GetItems(System.Diagnostics.Stopwatch perfTimer, int take = 0, int skip = 0)
         {
-            return await GetItems(req, log, _repo, perfTimer);
+            if (take < 0) throw new System.ArgumentOutOfRangeException("take must be non-negative");
+            if (take > 0 && skip < 0) throw new System.ArgumentOutOfRangeException("skip must be non-negative if take is defined");
+            return await GetItems(_repo, perfTimer, take, skip);
         }
 
         /// <summary>
@@ -217,35 +244,36 @@ namespace KindredPOC.API.Code
         /// <param name="Repo"></param>
         /// <param name="perfTimer"></param>
         /// <returns></returns>
-        public async Task<HttpResponseMessage> GetItems(HttpRequestMessage req, TraceWriter log, IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer)
+        public async Task<IEnumerable<Models.Item>> GetItems(IDataRepository Repo, System.Diagnostics.Stopwatch perfTimer, int take = 0, int skip = 0)
         {
+            if (Repo == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply repository");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
+            if (perfTimer == null)
+            {
+                //passing in a null item should throw an exception and be handled at a higher level
+                ArgumentNullException nex = new ArgumentNullException("Must supply perf");
+                telemetry.TrackException(nex);
+                throw nex;
+            }
             try
             {
-                string take = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "take", true) == 0).Value;
-                string skip = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "skip", true) == 0).Value;
-                // Get request body
-                dynamic data = await req.Content.ReadAsAsync<object>();
-
-                // Set name to query string or body data
-                take = take ?? data?.take;
-                skip = skip ?? data?.skip;
-                int takeint = 0;
-                int skipint = 0;
-                int.TryParse(take, out takeint);
-                int.TryParse(skip, out skipint);
-                var items = await GetDataRepoItems(_repo, takeint, skipint);
+                var items = await GetItems(_repo, take, skip);
                 EventTelemetry newevent = new EventTelemetry { Name = "GetItems" };
                 newevent.Metrics.Add("GetElapsed", perfTimer.ElapsedMilliseconds);
                 newevent.Properties.Add("GetReturn", JsonConvert.SerializeObject(items, Formatting.Indented));
                 telemetry.TrackEvent(newevent);
                 telemetry.TrackMetric("GetElapsed", perfTimer.ElapsedMilliseconds);
-                return req.CreateResponse(HttpStatusCode.OK, items, "application/json");
+                return items;
             }
             catch (Exception ex)
             {
-                log.Info($"Fail get");
-                telemetry.TrackException(ex);//Is this done by framework?  look for duplicate entries in log
-                return req.CreateErrorResponse(HttpStatusCode.BadGateway, ex.Message);
+                telemetry.TrackException(ex);
+                throw;
             }
         }
     }
