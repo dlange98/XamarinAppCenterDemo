@@ -4,9 +4,8 @@ using Refapp.ViewModels;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Refapp.Services;
-using Xamarin.UITest;
 
-namespace RefappUITest
+namespace RefappNUnit
 {
     [TestFixture()]
     public class UnitTest
