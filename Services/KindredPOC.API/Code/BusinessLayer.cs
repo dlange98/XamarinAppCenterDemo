@@ -216,7 +216,7 @@ namespace KindredPOC.API.Code
         /// <param name="take"></param>
         /// <param name="skip"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Models.Item>> GetDataRepoItems(IDataRepository Repo, int take, int skip)
+        public async Task<IEnumerable<Models.Item>> GetItems(IDataRepository Repo, int take, int skip)
         {
             if (take < 0) throw new System.ArgumentOutOfRangeException("take must be non-negative");
             if (take > 0 && skip < 0) throw new System.ArgumentOutOfRangeException("skip must be non-negative if take is defined");
@@ -229,8 +229,10 @@ namespace KindredPOC.API.Code
         /// <param name="log"></param>
         /// <param name="perfTimer"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Models.Item>> BL_GetItems(System.Diagnostics.Stopwatch perfTimer, int take, int skip)
+        public async Task<IEnumerable<Models.Item>> GetItems(System.Diagnostics.Stopwatch perfTimer, int take = 0, int skip = 0)
         {
+            if (take < 0) throw new System.ArgumentOutOfRangeException("take must be non-negative");
+            if (take > 0 && skip < 0) throw new System.ArgumentOutOfRangeException("skip must be non-negative if take is defined");
             return await GetItems(_repo, perfTimer, take, skip);
         }
 
@@ -260,7 +262,7 @@ namespace KindredPOC.API.Code
             }
             try
             {
-                var items = await GetDataRepoItems(_repo, take, skip);
+                var items = await GetItems(_repo, take, skip);
                 EventTelemetry newevent = new EventTelemetry { Name = "GetItems" };
                 newevent.Metrics.Add("GetElapsed", perfTimer.ElapsedMilliseconds);
                 newevent.Properties.Add("GetReturn", JsonConvert.SerializeObject(items, Formatting.Indented));

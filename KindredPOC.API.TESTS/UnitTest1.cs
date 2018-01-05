@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace KindredPOC.API.TESTS
             Code.BusinessLayer bl = new Code.BusinessLayer(repo);
             //Act
             
-            var items = await bl.GetDataRepoItems(repo,-3, 0);
+            var items = await bl.GetItems(repo,-3, 0);
             //Assess
             //notused
 
@@ -129,6 +130,7 @@ namespace KindredPOC.API.TESTS
             Assert.IsNotNull(saveditem);
             Assert.IsTrue(saveditem.Id.Length > 0);
         }
+       
         //[TestMethod]
         //[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
         //public async Task BL_Save_returns_object()
@@ -152,7 +154,7 @@ namespace KindredPOC.API.TESTS
             Code.BusinessLayer bl = new Code.BusinessLayer(repo);
             //Act
 
-            var items = await bl.GetDataRepoItems(repo, 3,-3);
+            var items = await bl.GetItems(repo, 3,-3);
             //Assess
             //notused
 
@@ -166,7 +168,7 @@ namespace KindredPOC.API.TESTS
             Code.BusinessLayer bl = new Code.BusinessLayer(repo);
             //Act
 
-            var items = await bl.GetDataRepoItems(repo, 3, -3);
+            var items = await bl.GetItems(repo, 3, -3);
             //Assess
             //notused
 

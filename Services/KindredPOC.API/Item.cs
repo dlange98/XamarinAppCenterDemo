@@ -52,12 +52,22 @@ namespace KindredPOC.API
                         int.TryParse(take, out takeint);
                         int.TryParse(skip, out skipint);
 
-                        System.Collections.Generic.List<Models.Item> items = await BL.GetItems(Repo, perfTimer, takeint, skipint);
+                        System.Collections.Generic.IEnumerable<Models.Item> items = await BL.GetItems(Repo, perfTimer, takeint, skipint);
+                        if (items != null)
+                        {
+                            return req.CreateResponse(HttpStatusCode.OK, items, "application/json");
+                        }
+                        else
+                        {
+                            return req.CreateResponse(HttpStatusCode.NoContent);
+                        }
                     }
                     catch (Exception ex)
                     {
 
-                        throw;
+                        log.Info($"Fail get");
+                        telemetry.TrackException(ex);
+                        return req.CreateErrorResponse(HttpStatusCode.BadGateway, ex.Message);
                     }
                    
                     break;
