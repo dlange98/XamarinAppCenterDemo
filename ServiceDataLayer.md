@@ -6,13 +6,31 @@ Entity framework was used as the Object Relational Mapper framework.  It has the
 ### Data Store Selection
 SQL Server was chosen as the data store.  It is recomended for relational data that is normalized.  If your data is non-relational or the schema is highly variable there are Document databases or no-SQL alternatives such as Mongo, Cosmo, CouchDB, or simple Blob or table/Key Value Pair storage techniques.  Each approach is appropriate for different scenarios, depending on which features are critical (scale, speed, ACID adherance, etc.)
 
-Azure SQL Server is used to persist items in the reference Application.  The following basic schema is being used:
+Azure SQL Server is used to persist items in the reference Application. 
+
+#### Reference App SQL Details ####
+
+Param   | Value
+--------| -------
+Server  | referenceappsvr.database.windows.net
+Database| ReferenceAppDb
+SA Account | hiveadmin
+SA Pwd  | HivePassword123
+FW IPs  |   69.61.132.169
+Transparent data encryption |   ON
+
+#### Schema ####
+
+The following basic schema is being used:
 
 Field       | Data Type         | Notes
 --------    | -----------       | ---------
 Id          | nvarchar (128)    | EF Generated GUID
 Text        | nvarchar (MAX)    | 
 Description | nvarchar (MAX)    |
+
+
+
 
 or, as a SQL Script:
 ~~~~

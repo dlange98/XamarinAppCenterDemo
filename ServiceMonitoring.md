@@ -8,7 +8,7 @@ We also used some special eventing code within the assemblies to record business
 
 Example of monitoring view
 
-![App Insights Dashboard](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Monitoring_01.PNG)
+![App Insights Dashboard](https://abaf81c44da6f407f97a8bac.blob.core.windows.net/screenshots/SC_Monitoring_01.PNG)
 
 
 ### Microsoft Operations Management Suite (OMS)
