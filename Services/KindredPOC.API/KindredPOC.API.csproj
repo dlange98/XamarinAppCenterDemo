@@ -5,12 +5,14 @@
   <ItemGroup>    
     <PackageReference Include="EntityFramework" Version="6.2.0" />    
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.4.0" />    
-    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.17.2" />    
+    <PackageReference Include="Microsoft.Azure.NotificationHubs" Version="1.0.9" />    
+    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.17.3" />    
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.7" />    
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
