@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "-= Build nUnit test projects: =-"
 find $APPCENTER_SOURCE_DIRECTORY -regex '.*\RefApp\.NUnitTest\.csproj' -exec msbuild {} \;
 echo
