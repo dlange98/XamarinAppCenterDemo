@@ -19,6 +19,9 @@ cat $pathOfTestResults
 grep -q 'success="False"' $pathOfTestResults
 
 if [[ $? -eq 0 ]]
-    then echo "a test Failed" exit 1
-    else echo "all tests passed" exit 0
+    then 
+        echo "a test Failed" 
+        exit 1
+    else 
+        echo "all tests passed" 
 fi
