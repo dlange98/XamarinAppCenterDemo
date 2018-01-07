@@ -1,13 +1,14 @@
-using KindredPOC.API.Code;
 using KindredPOC.API.Models;
 using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Azure.NotificationHubs;
+using Microsoft.Azure.NotificationHubs.Messaging;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace KindredPOC.API
         {
             telemetry.Context.Operation.Id = req.GetCorrelationId().ToString();
             telemetry.Context.Operation.Name = "KindredMobile Function API";
-            IDataRepository Repo = new DataRepository(); //TODO: setup DI 
+            IDataRepository Repo = new DataRepository(); //TODO: setup DI
             var BL = new Code.BusinessLayer(Repo);
             System.Diagnostics.Stopwatch perfTimer = new System.Diagnostics.Stopwatch();
             perfTimer.Start();
@@ -33,7 +34,7 @@ namespace KindredPOC.API
             log.Info($"KindredMobile Function API {req.GetActionDescriptor()}");
             telemetry.TrackEvent("Item Function API called");
             telemetry.TrackMetric("Event timeline", perfTimer.ElapsedMilliseconds);
-           
+
             switch (req.Method.Method)
             {
                 case "GET":
@@ -64,12 +65,11 @@ namespace KindredPOC.API
                     }
                     catch (Exception ex)
                     {
-
                         log.Info($"Fail get");
                         telemetry.TrackException(ex);
                         return req.CreateErrorResponse(HttpStatusCode.BadGateway, ex.Message);
                     }
-                   
+
                     break;
 
                 case "POST":
@@ -78,9 +78,10 @@ namespace KindredPOC.API
                         string data = await req.Content.ReadAsStringAsync();
                         if (data == null || data.Length == 0) throw new ArgumentNullException("No item was supplied for Save");
                         Models.Item item = JsonConvert.DeserializeObject<Models.Item>(data);
-                        var saveditem =  await BL.SaveItem(item, Repo, perfTimer);
-                        if (saveditem!=null)
+                        var saveditem = await BL.SaveItem(item, Repo, perfTimer);
+                        if (saveditem != null)
                         {
+                            await SendNotification($"New item added:{saveditem.Text}");
                             return req.CreateResponse(HttpStatusCode.OK, saveditem);
                         }
                         else
@@ -88,7 +89,7 @@ namespace KindredPOC.API
                             return req.CreateResponse(HttpStatusCode.BadRequest, item);
                         }
                     }
-                    catch(Newtonsoft.Json.JsonSerializationException jsonex)
+                    catch (Newtonsoft.Json.JsonSerializationException jsonex)
                     {
                         telemetry.TrackException(jsonex);
                         return req.CreateResponse(HttpStatusCode.BadRequest, "Could not read submitted Item");
@@ -98,7 +99,7 @@ namespace KindredPOC.API
                         telemetry.TrackException(ex);
                         return req.CreateErrorResponse(HttpStatusCode.InternalServerError, ex);
                     }
-                    
+
                 case "DELETE":
                     try
                     {
@@ -112,6 +113,7 @@ namespace KindredPOC.API
                         bool Success = await BL.DeleteItem(Id, Repo, perfTimer);
                         if (Success)
                         {
+                            await SendNotification($"Item Removed:{Id}");
                             return req.CreateResponse(HttpStatusCode.OK, Id);
                         }
                         else
@@ -128,9 +130,10 @@ namespace KindredPOC.API
                     {
                         string data = await req.Content.ReadAsStringAsync();
                         Models.Item item = JsonConvert.DeserializeObject<Models.Item>(data);
-                        bool Success =  await BL.UpdateItem(item, Repo, perfTimer);
-                        if(Success)
+                        bool Success = await BL.UpdateItem(item, Repo, perfTimer);
+                        if (Success)
                         {
+                            await SendNotification($"Item updated:{item.Text}");
                             return req.CreateResponse(HttpStatusCode.OK, item);
                         }
                         else
@@ -147,6 +150,38 @@ namespace KindredPOC.API
             }
         }
 
-        
+        public static async Task SendNotification(string Message)
+        {
+            try
+            {
+                var HubCon = ConfigurationManager.ConnectionStrings["NotificationHubCnx"].ConnectionString;
+                var HubName = System.Environment.GetEnvironmentVariable("NotificationHubName", EnvironmentVariableTarget.Process);
+                NotificationHubClient hubClient = NotificationHubClient.CreateClientFromConnectionString(HubCon, HubName);
+
+                NotificationOutcome outcome = null;
+                NotificationOutcome outcome2 = null;
+
+                string[] tags = null; // no tags - just broadcast
+
+                var notif = "{ \"data\" : {\"message\":\"" + string.Format("{0}", Message) + "\"}}";
+                //Andriod
+                outcome = await hubClient.SendGcmNativeNotificationAsync(notif, tags);
+                //Apple APNS {"aps":{"alert":"Notification Hub test notification"}}
+                notif = "{ \"aps\" : {\"alert\":\"" + string.Format("{0}", Message) + "\"}}";
+                //Apple
+                outcome2 = await hubClient.SendAppleNativeNotificationAsync(notif, tags);
+
+                //manage outcomes if it's a usecase
+            }
+            catch (MessagingException ex1)
+            {
+                // When an error occurs, return a failure status.
+                telemetry.TrackException(ex1);
+            }
+            catch (Exception ex)
+            {
+                telemetry.TrackException(ex);
+            }
+        }
     }
 }

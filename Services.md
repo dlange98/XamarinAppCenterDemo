@@ -1,6 +1,7 @@
 # Service Design
 ## Description of Reference Service Design
-The services were designed as a serverless architecture hosted in Microsfof Azure Azure Functions
+The services were designed as a serverless architecture hosted in Microsoft Azure Functions.
+
 The Microservice for the Item class demonstrates a basic CRUD (CReate, Update, Delete) approach with the following technology stack:
 <ul>
 <li> Azure functions Service Host </li>
@@ -9,4 +10,4 @@ The Microservice for the Item class demonstrates a basic CRUD (CReate, Update, D
 </ul>
 
 ### Overall Layout
-![Service API Design](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/ServiceArchitecture.png)
+![Service API Design](https://abaf81c44da6f407f97a8bac.blob.core.windows.net/screenshots/ServiceArchitecture.png)

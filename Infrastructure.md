@@ -16,7 +16,7 @@ a65edf37839fb441e9d71f25                 | Microsoft.Storage/storageAccounts    
 OAuthBackendPlan                         | Microsoft.Web/serverFarms                | functionapp
 OAuthBackend                             | Microsoft.Web/sites                      | functionapp
 
-Logical Data Structure ![Logical Diagram of Reference Application](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Diagram_01.png) 
+Logical Data Structure ![Logical Diagram of Reference Application](https://abaf81c44da6f407f97a8bac.blob.core.windows.net/screenshots/SC_Diagram_01.png) 
 
 
-![Screenshot of Resources in Azure](https://a65edf37839fb441e9d71f25.blob.core.windows.net/screenshots/SC_Resources.PNG)
+![Screenshot of Resources in Azure](https://abaf81c44da6f407f97a8bac.blob.core.windows.net/screenshots/SC_Resources.PNG)
