@@ -16,7 +16,7 @@ namespace RefappNUnit
             var x = new AboutViewModel();
 
             x.Title = "dan was here";
-            Assert.AreEqual("dan was here sude ", x.Title);
+            Assert.AreEqual("dan was here", x.Title);
         }
 
         [Test()]
