@@ -55,21 +55,39 @@ To run the test from the IDE simple select the _NUnit test view_ and right click
 
 ### Running the tests as part of the build.
 
-At this time you are not able to run unit tests as part of the automated build on App Center. However, you could create a post build script to run the tests (if project name was RefApp.NUnitTests ):
+At this time you are not able to run unit tests as part of the automated build on App Center. However, the following is a post build script that runs the tests for the RefApp project:
 
 ```
+#!/usr/bin/env bash
 echo "-= Build nUnit test projects: =-"
-find . -regex '.*\.NUnitTests\.csproj' -exec msbuild {} \;
+find $APPCENTER_SOURCE_DIRECTORY -regex '.*\RefApp\.NUnitTest\.csproj' -exec msbuild {} \;
 echo
+
 echo "-= Found projects to run nUnit tests: =-"
-find . -regex '.*bin.*\.NUnitTests\.dll' -exec echo {} \;
+find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*\RefApp\.NUnitTest\.dll' -exec echo {} \;
 echo
+
 echo "-= Running nUnit tests: =-"
-find . -regex '.*bin.*\.NUnitTests\.dll' -exec nunit-console {} \;
+find $APPCENTER_SOURCE_DIRECTORY -regex '.*bin.*\RefApp\.NUnitTest\.dll' -exec nunit-console {} \;
 echo
+
 echo "-= nUnit test result: =-"
-find . -name 'TestResult.xml' -exec cat {} \;
+pathOfTestResults=$(find $APPCENTER_SOURCE_DIRECTORY -name 'TestResult.xml')
+cat $pathOfTestResults
+
+#look for a failing test
+grep -q 'success="False"' $pathOfTestResults
+
+if [[ $? -eq 0 ]]
+    then
+        echo "a test Failed"
+        exit 1
+    else
+        echo "all tests passed"
+fi
 ```
+
+Note if one of the test fails the script will throw a exit code 1 of which will mark the build as a failure.
 
 ## App Center - Test Cloud
 
@@ -143,7 +161,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-                 typeof(Analytics), typeof(Crashes));
+               typeof(Analytics), typeof(Crashes));
   ```
 
 The above example adds both Analytics and Crash detection to your application.
@@ -165,7 +183,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-                 typeof(Analytics), typeof(Crashes));
+               typeof(Analytics), typeof(Crashes));
   ```
 
   ## Analytics
