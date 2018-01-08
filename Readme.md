@@ -28,9 +28,9 @@ The underlying service layer is implemented using Azure Functions, Entity Framew
 ### Data Layer / Persistance
 SQL Server is used for the Persistance Layer, with Entity Framework managing the ORM.
 ### Service Monitoring
-Azure Application Insights
+Azure Application Insights and Microsoft OperationsMonitor are used to monitor application health.  These are describe in the [Monitoring section](./ServiceMonitoring.md)
 ## DevOps
-
+The [DevOps elements (link)](./DevOps.md) describe how the services and resources are deployed and updated in an automated fashion.
 ## Mobile Client Architecture
 
 The [Mobile Architecture Doc](./MOBILE.md) contains the architecture documentation for the Mobile Clients.

@@ -20,3 +20,9 @@ Logical Data Structure ![Logical Diagram of Reference Application](https://abaf8
 
 
 ![Screenshot of Resources in Azure](https://abaf81c44da6f407f97a8bac.blob.core.windows.net/screenshots/SC_Resources.PNG)
+
+<UL>
+References:
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings">Azure Functions triggers and bindings concepts</a></li>
+<li><a href="https://azure.microsoft.com/en-us/solutions/architecture/mobile-app-consumer/">Microsoft ask-based consumer mobile app Guidance</a></li>
+</UL>
