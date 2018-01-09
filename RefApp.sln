@@ -16,17 +16,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindredPOC.API.TESTS", "Kin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A31DB419-F953-4407-BA5B-89C2D94F0334}"
 	ProjectSection(SolutionItems) = preProject
-		Scripts\deploy.ps1 = Scripts\deploy.ps1
 		DevOps.md = DevOps.md
 		Infrastructure.md = Infrastructure.md
 		MOBILE.md = MOBILE.md
-		Scripts\parameters.json = Scripts\parameters.json
 		Readme.md = Readme.md
 		ServiceDataLayer.md = ServiceDataLayer.md
 		ServiceMonitoring.md = ServiceMonitoring.md
 		Services.md = Services.md
 		ServiceSecurity.md = ServiceSecurity.md
-		Scripts\Templates\template1.json = Scripts\Templates\template1.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindredPOC.API", "Services\KindredPOC.API\KindredPOC.API.csproj", "{D2238BDB-BA9C-4BE6-BFCD-509D17C9B0BC}"
