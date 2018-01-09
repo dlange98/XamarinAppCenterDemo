@@ -1,0 +1,305 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "servers_app_name": {
+            "defaultValue": "kindredpoc",
+            "type": "string"
+        },
+        "sites_Backend_name": {
+            "defaultValue": "OAuthBackend",
+            "type": "string"
+        },
+        "serverfarms_BackendPlan_name": {
+            "defaultValue": "OAuthBackendPlan",
+            "type": "string"
+        },
+        "config_web_name": {
+            "defaultValue": "web",
+            "type": "string"
+        },
+        "databases_master_name": {
+            "defaultValue": "master",
+            "type": "string"
+        },
+        "keys_ServiceManaged_name": {
+            "defaultValue": "ServiceManaged",
+            "type": "string"
+        },
+        "databases_app_name": {
+            "defaultValue": "KindredPOC",
+            "type": "string"
+        },
+        "auditingPolicies_Default_name": {
+            "defaultValue": "Default",
+            "type": "string"
+        },
+        "storageAccounts_name": {
+            "defaultValue": "refappstorage",
+            "type": "string"
+        },
+        "encryptionProtector_current_name": {
+            "defaultValue": "current",
+            "type": "string"
+        },
+        "components_OauthBackend_ApplicationInsights_name": {
+            "defaultValue": "OauthBackend_ApplicationInsights",
+            "type": "string"
+        },
+        "deployments_60151515435190461_name": {
+            "defaultValue": "60151515435190461",
+            "type": "string"
+        },
+        "deployments_60111515427519330_name": {
+            "defaultValue": "60111515427519330",
+            "type": "string"
+        },
+        "deployments_60081515417900789_name": {
+            "defaultValue": "60081515417900789",
+            "type": "string"
+        },
+        "deployments_60071515417581276_name": {
+            "defaultValue": "60071515417581276",
+            "type": "string"
+        },
+        "deployments_60061515417252704_name": {
+            "defaultValue": "60061515417252704",
+            "type": "string"
+        },
+        "deployments_60051515417054555_name": {
+            "defaultValue": "60051515417054555",
+            "type": "string"
+        },
+        "deployments_60031515350865082_name": {
+            "defaultValue": "60031515350865082",
+            "type": "string"
+        },
+        "deployments_60021515350329587_name": {
+            "defaultValue": "60021515350329587",
+            "type": "string"
+        },
+        "deployments_60011515348821436_name": {
+            "defaultValue": "60011515348821436",
+            "type": "string"
+        },
+        "deployments_60001515348201730_name": {
+            "defaultValue": "60001515348201730",
+            "type": "string"
+        },
+        "firewallRules_AllowAllWindowsAzureIps_name": {
+            "defaultValue": "AllowAllWindowsAzureIps",
+            "type": "string"
+        },
+        "advisors_DropIndex_name": {
+            "defaultValue": "DropIndex",
+            "type": "string"
+        },
+        "advisors_CreateIndex_name": {
+            "defaultValue": "CreateIndex",
+            "type": "string"
+        },
+        "backupLongTermRetentionVaults_RegisteredVault_name": {
+            "defaultValue": "RegisteredVault",
+            "type": "string"
+        },
+        "auditingPolicies_Default_name_1": {
+            "defaultValue": "Default",
+            "type": "string"
+        },
+        "geoBackupPolicies_Default_name": {
+            "defaultValue": "Default",
+            "type": "string"
+        },
+        "advisors_ForceLastGoodPlan_name": {
+            "defaultValue": "ForceLastGoodPlan",
+            "type": "string"
+        },
+        "hostNameBindings_oauthbackend.azurewebsites.net_name": {
+            "defaultValue": "oauthbackend.azurewebsites.net",
+            "type": "string"
+        },
+        "advisors_DbParameterization_name": {
+            "defaultValue": "DbParameterization",
+            "type": "string"
+        },
+        "firewallRules_ClientIPAddress_2017_12_12_10_43_54_name": {
+            "defaultValue": "ClientIPAddress_2017-12-12_10-43-54",
+            "type": "string"
+        },
+        "transparentDataEncryption_current_name": {
+            "defaultValue": "current",
+            "type": "string"
+        },
+        "backupLongTermRetentionPolicies_Default_name": {
+            "defaultValue": "Default",
+            "type": "string"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/microsoft.insights/components/OauthBackend_ApplicationInsights'.",
+            "type": "microsoft.insights/components",
+            "kind": "other",
+            "name": "[parameters('components_OauthBackend_ApplicationInsights_name')]",
+            "apiVersion": "2014-04-01",
+            "location": "eastus",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "ApplicationId": "[parameters('components_OauthBackend_ApplicationInsights_name')]"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc'.",
+            "type": "Microsoft.Sql/servers",
+            "kind": "v12.0",
+            "name": "[parameters('servers_app_name')]",
+            "apiVersion": "2015-05-01-preview",
+            "location": "eastus",
+            "scale": null,
+            "properties": {
+                "administratorLogin": "hiveadmin",
+                "administratorLoginPassword": "HivePassword123",
+                "version": "12.0"
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/oauth/providers/Microsoft.Storage/storageAccounts/a65edf37839fb441e9d71f25'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS"
+            },
+            "kind": "Storage",
+            "name": "[concat(parameters('storageAccounts_name'),uniqueString(resourceGroup().id))]",
+            "apiVersion": "2016-01-01",
+            "location": "[resourceGroup().location]",
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Web/serverfarms/OAuthBackendPlan'.",
+            "type": "Microsoft.Web/serverfarms",
+            "sku": {
+                "name": "Y1",
+                "tier": "Dynamic",
+                "size": "Y1",
+                "family": "Y",
+                "capacity": 0
+            },
+            "kind": "functionapp",
+            "name": "[parameters('serverfarms_BackendPlan_name')]",
+            "apiVersion": "2016-09-01",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+            "properties": {
+                "name": "[parameters('serverfarms_BackendPlan_name')]",
+                "workerTierName": null,
+                "adminSiteName": null,
+                "hostingEnvironmentProfile": null,
+                "perSiteScaling": false,
+                "reserved": false,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
+            },
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Web/sites/OAuthBackend'.",
+            "type": "Microsoft.Web/sites",
+            "kind": "functionapp",
+            "name": "[parameters('sites_Backend_name')]",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "hidden-related:/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Web/serverfarms/OAuthBackendPlan": "empty"
+            },
+            "scale": null,
+            "properties": {
+                "enabled": true,
+                "hostNameSslStates": [
+                    {
+                        "name": "[concat(parameters('sites_Backend_name'),'.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "virtualIP": null,
+                        "thumbprint": null,
+                        "toUpdate": null,
+                        "hostType": "Standard"
+                    },
+                    {
+                        "name": "[concat(parameters('sites_Backend_name'),'.scm.azurewebsites.net')]",
+                        "sslState": "Disabled",
+                        "virtualIP": null,
+                        "thumbprint": null,
+                        "toUpdate": null,
+                        "hostType": "Repository"
+                    }
+                ],
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_BackendPlan_name'))]",
+                "reserved": false,
+                "siteConfig": null,
+                "scmSiteAlsoStopped": false,
+                "hostingEnvironmentProfile": null,
+                "clientAffinityEnabled": true,
+                "clientCertEnabled": false,
+                "hostNamesDisabled": false,
+                "containerSize": 1536,
+                "dailyMemoryTimeQuota": 0,
+                "cloningInfo": null
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_BackendPlan_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc/databases/KindredPOC'.",
+            "type": "Microsoft.Sql/servers/databases",
+            "kind": "v12.0,user",
+            "name": "[concat(parameters('servers_app_name'), '/', parameters('databases_app_name'))]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+            "properties": {
+                "databaseId": "69eb95f3-0236-494b-bfb1-8062c939d772",
+                "edition": "Standard",
+                "status": "Online",
+                "serviceLevelObjective": "S0",
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "21474836480",
+                "creationDate": "2017-12-12T15:15:01.027Z",
+                "currentServiceObjectiveId": "f1173c43-91bd-4aaa-973c-54e79e15235b",
+                "requestedServiceObjectiveId": "f1173c43-91bd-4aaa-973c-54e79e15235b",
+                "requestedServiceObjectiveName": "S0",
+                "sampleName": null,
+                "defaultSecondaryLocation": "West US",
+                "earliestRestoreDate": "2017-12-12T15:45:37.2Z",
+                "elasticPoolName": null,
+                "containmentState": 2,
+                "readScale": "Disabled",
+                "failoverGroupId": null,
+                "zoneRedundant": false,
+                "isUpgradeRequested": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_app_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc/firewallRules/AllowAllWindowsAzureIps'.",
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "kind": "v12.0",
+            "name": "[concat(parameters('servers_app_name'), '/', parameters('firewallRules_AllowAllWindowsAzureIps_name'))]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', parameters('servers_app_name'))]"
+            ]
+        }
+    ]
+}
