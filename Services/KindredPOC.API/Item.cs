@@ -161,15 +161,15 @@ namespace KindredPOC.API
                 NotificationOutcome outcome = null;
                 NotificationOutcome outcome2 = null;
 
-                string[] tags = null; // no tags - just broadcast
+                string[] tags = new string[0]; // no tags - just broadcast
 
                 var notif = "{ \"data\" : {\"message\":\"" + string.Format("{0}", Message) + "\"}}";
                 //Andriod
-                outcome = await hubClient.SendGcmNativeNotificationAsync(notif, tags);
+                outcome = await hubClient.SendGcmNativeNotificationAsync(notif);
                 //Apple APNS {"aps":{"alert":"Notification Hub test notification"}}
                 notif = "{ \"aps\" : {\"alert\":\"" + string.Format("{0}", Message) + "\"}}";
                 //Apple
-                outcome2 = await hubClient.SendAppleNativeNotificationAsync(notif, tags);
+                //outcome2 = await hubClient.SendAppleNativeNotificationAsync(notif); //tmp removed until portal setup for apple
 
                 //manage outcomes if it's a usecase
             }
