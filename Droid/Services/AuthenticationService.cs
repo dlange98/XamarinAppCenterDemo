@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Android.App;
-using XamarinAdal.Droid.Services;
+using Refapp.Droid.Services;
 using Xamarin.Forms;
 using System.Linq;
 using Refapp.Models;
@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 [assembly: Xamarin.Forms.Dependency(typeof(AuthenticateService))]
 
-namespace XamarinAdal.Droid.Services
+namespace Refapp.Droid.Services
 {
     public class AuthenticateService : IAuthenticator
     {

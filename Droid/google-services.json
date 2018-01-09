@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "405737383305",
+    "firebase_url": "https://testrefapp.firebaseio.com",
+    "project_id": "testrefapp",
+    "storage_bucket": "testrefapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405737383305:android:ae68d58b309ee2bd",
+        "android_client_info": {
+          "package_name": "com.cardinal.Refapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405737383305-66grghkpdpkschafpogjv1siigs3nd4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVPHIMseJznyFvTFvJOZT6apIIbupoXy4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
