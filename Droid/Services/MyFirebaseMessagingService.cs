@@ -13,8 +13,6 @@ namespace Refapp.Droid.Services
     [IntentFilter(new[] { "com.google.firebase.MESSAGING_EVENT" })]
     public class MyFirebaseMessagingService : FirebaseMessagingService
     {
-
-
         const string TAG = "MyFirebaseMessagingService";
         public override void OnMessageReceived(RemoteMessage message)
         {
@@ -29,7 +27,6 @@ namespace Refapp.Droid.Services
             {
                 //Only used for debugging payloads sent from the Azure portal
                 SendNotification(message.Data.Values.First());
-
             }
 
         }
