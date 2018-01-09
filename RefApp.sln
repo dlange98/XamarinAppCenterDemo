@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refapp", "RefappCommon\Refapp.csproj", "{E7F73A4C-2536-42DF-94A8-CB152A982CFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refapp", "RefappCommon\Refapp.csproj", "{E7F73A4C-2536-42DF-94A8-CB152A982CFF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refapp.iOS", "iOS\Refapp.iOS.csproj", "{2906ACA9-45B9-43C7-8109-602A56BB272E}"
 EndProject
@@ -16,19 +16,33 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindredPOC.API.TESTS", "Kin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A31DB419-F953-4407-BA5B-89C2D94F0334}"
 	ProjectSection(SolutionItems) = preProject
+		Scripts\deploy.ps1 = Scripts\deploy.ps1
 		DevOps.md = DevOps.md
 		Infrastructure.md = Infrastructure.md
 		MOBILE.md = MOBILE.md
+		Scripts\parameters.json = Scripts\parameters.json
 		Readme.md = Readme.md
 		ServiceDataLayer.md = ServiceDataLayer.md
 		ServiceMonitoring.md = ServiceMonitoring.md
 		Services.md = Services.md
 		ServiceSecurity.md = ServiceSecurity.md
+		Scripts\Templates\template1.json = Scripts\Templates\template1.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KindredPOC.API", "Services\KindredPOC.API\KindredPOC.API.csproj", "{D2238BDB-BA9C-4BE6-BFCD-509D17C9B0BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KindredPOC.API", "Services\KindredPOC.API\KindredPOC.API.csproj", "{D2238BDB-BA9C-4BE6-BFCD-509D17C9B0BC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefApp.NUnitTest", "RefApp.NUnitTest\RefApp.NUnitTest.csproj", "{49660729-BC94-43DB-8FF4-E243D364D3D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{7CD6729D-E7F9-4275-B037-AA3C222037E9}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\deploy.ps1 = Scripts\deploy.ps1
+		Scripts\parameters.json = Scripts\parameters.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{16DE66D7-4BAA-428C-80AF-9B7FAEA54760}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\Templates\template1.json = Scripts\Templates\template1.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +145,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{066A4857-341B-4893-8C97-BE50DEDE19AF} = {4AAF8365-FD7C-4340-AB91-FDF3E0DB4DB4}
 		{D2238BDB-BA9C-4BE6-BFCD-509D17C9B0BC} = {4AAF8365-FD7C-4340-AB91-FDF3E0DB4DB4}
+		{7CD6729D-E7F9-4275-B037-AA3C222037E9} = {A31DB419-F953-4407-BA5B-89C2D94F0334}
+		{16DE66D7-4BAA-428C-80AF-9B7FAEA54760} = {7CD6729D-E7F9-4275-B037-AA3C222037E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {34D35DB8-B5A6-445C-A1A9-6D703D4FFBD1}
