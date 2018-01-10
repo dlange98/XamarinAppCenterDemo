@@ -152,6 +152,9 @@
     <Reference Include="Microsoft.AppCenter.Crashes.iOS.Bindings">
       <HintPath>..\packages\Microsoft.AppCenter.Crashes.1.1.0\lib\Xamarin.iOS10\Microsoft.AppCenter.Crashes.iOS.Bindings.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Azure.NotificationHubs.iOS">
+      <HintPath>..\packages\Xamarin.Azure.NotificationHubs.iOS.1.2.5.2\lib\Xamarin.iOS10\Xamarin.Azure.NotificationHubs.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
@@ -177,6 +180,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="Services\AuthenticationService.cs" />
     <Compile Include="Services\FileManager.cs" />
+    <Compile Include="Configuration\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />
@@ -198,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
+    <Folder Include="Configuration\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
