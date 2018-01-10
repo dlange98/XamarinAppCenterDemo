@@ -51,7 +51,7 @@ namespace Refapp.Droid.Services
 
             // just for fun, a 'custom' alert in the app
             Device.BeginInvokeOnMainThread(() => {
-                Application.Current.MainPage.DisplayAlert("Notification", messageBody, "OK");
+                Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Notification", messageBody, "OK");
             });
 
         }
