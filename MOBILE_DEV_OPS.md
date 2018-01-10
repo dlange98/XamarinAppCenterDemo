@@ -8,7 +8,7 @@ The iOS and Android CI processes are using _AppCenters_ build feature. The build
 
 ### Configure the build
 
-Perform the following to configure the build. The summary of the steps are:
+Perform the following to configure the build. Once you have created a new app in app center, you can wire up the build. The summary of the steps are outlined below:
 
 1. link to your repository. In this case we are linking to VSTS.
 2. Select a branch.
@@ -23,11 +23,11 @@ Note, we found that for IOS, manual code signing seems to function with the leas
 
 ## Unit and UI Testing
 
-This section describes creating the _Unit_ and the _UITests_ for the applications. To create unit or uitests add a new project type of UITestApp. It can be found under the Multiplatform/Tests in the new project wizard. The UITest will added the `NUnit` and `Xamarin.UITest` packages to the new project. Note the reference solution's UI testing project is `RefAppUITTest`. The Unit test project is `RefApp.NUnitTests`. You will also need to add reference to the main Forms app, in this case there is a reference to the `RefApp` project in both projects.
+This section describes creating the _Unit_ and the _UITests_ for the applications. To create unit or uitests add a new project type of UITestApp. It can be found under the Multiplatform/Tests in the new project wizard. The UITest will added the `NUnit` and `Xamarin.UITest` packages to the newly created project. Note the _RefApp_ solution's UI testing project is `RefAppUITTest`. The Unit test project is `RefApp.NUnitTests`. You will also need to add reference to the main Forms app, in this case there is a reference to the `RefApp` project in both projects.
 
 ### Unit Testing
 
-The `UnitTest.cs` file contains a few sample Unit tests. An interesting test to note is the `SettingIsBusyPropertyShouldRaiseProertyChanged` tests. The gaol of this test to to verify that modifying a property on an object with raise a property changed evert. This verifies that this object will function correctly with binding. For more information on unit testing for Forms see: [Unit Testing Forms Apps](https://developer.xamarin.com/guides/xamarin-forms/enterprise-application-patterns/unit-testing/).
+The `UnitTest.cs` file contains a few sample Unit tests. An interesting test to note is the `SettingIsBusyPropertyShouldRaiseProertyChanged` tests. The goal of this test to to verify that modifying a property on an object with raise a property changed evert. This will test if an object will function correctly with binding. For more information on unit testing for Forms see: [Unit Testing Forms Apps](https://developer.xamarin.com/guides/xamarin-forms/enterprise-application-patterns/unit-testing/).
 
 ### UITesting
 
@@ -91,7 +91,7 @@ Note if one of the test fails the script will throw a exit code 1 of which will 
 
 ## App Center - Test Cloud
 
-App Center Test Cloud allows running the unit tests on many devices. This reduces the need to have the many types of devices in house. The tests are initialed from the command line of a local machine. The results will be displayed in the App Center console.
+App Center Test Cloud allows running the unit tests on many devices. This reduces the need to have the many models of devices in house. The tests are initialed from the command line of a local machine. The results will be displayed in the App Center console.
 
 Perform the following steps to create a test run. See [Preparing Xamarin.UITests for Upload](https://docs.microsoft.com/en-us/appcenter/test-cloud/preparing-for-upload/uitest) for details.
 
@@ -161,7 +161,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-               typeof(Analytics), typeof(Crashes));
+              typeof(Analytics), typeof(Crashes));
   ```
 
 The above example adds both Analytics and Crash detection to your application.
@@ -183,7 +183,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-               typeof(Analytics), typeof(Crashes));
+              typeof(Analytics), typeof(Crashes));
   ```
 
   ## Analytics
