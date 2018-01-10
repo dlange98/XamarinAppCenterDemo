@@ -42,7 +42,7 @@
             "defaultValue": "current",
             "type": "string"
         },
-        "components_OauthBackend_ApplicationInsights_name": {
+        "components_ApplicationInsights_name": {
             "defaultValue": "OauthBackend_ApplicationInsights",
             "type": "string"
         },
@@ -141,13 +141,13 @@
             "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/microsoft.insights/components/OauthBackend_ApplicationInsights'.",
             "type": "microsoft.insights/components",
             "kind": "other",
-            "name": "[parameters('components_OauthBackend_ApplicationInsights_name')]",
+            "name": "[parameters('components_ApplicationInsights_name')]",
             "apiVersion": "2014-04-01",
             "location": "eastus",
             "tags": {},
             "scale": null,
             "properties": {
-                "ApplicationId": "[parameters('components_OauthBackend_ApplicationInsights_name')]"
+                "ApplicationId": "[parameters('components_ApplicationInsights_name')]"
             },
             "dependsOn": []
         },
@@ -300,6 +300,22 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_app_name'))]"
             ]
+        },
+        {
+            "type": "Microsoft.NotificationHubs/namespaces",
+            "sku": {
+                "name": "Free"
+            },
+            "kind": "NotificationHub",
+            "name": "needparamater-namespace",
+            "apiVersion": "2014-09-01",
+            "location": "[resourceGroup().location]",
+            "tags": {},
+            "scale": null,
+            "properties": {
+                "namespaceType": "NotificationHub"
+            },
+            "dependsOn": []
         }
     ]
 }

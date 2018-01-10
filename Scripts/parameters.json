@@ -32,7 +32,7 @@
         "encryptionProtector_current_name": {
             "value": "ref2-encryptionProtector"
         },
-        "components_OauthBackend_ApplicationInsights_name": {
+        "components_ApplicationInsights_name": {
             "value": "ref2-ref2Insights"
         },
         "firewallRules_AllowAllWindowsAzureIps_name": {
