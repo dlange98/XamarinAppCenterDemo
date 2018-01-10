@@ -9,7 +9,7 @@
             "value": "ref-dbserver"
         },
         "sites_Backend_name": {
-            "value": "ref-FuncAPI"
+            "value": "refAPI"
         },
         "serverfarms_BackendPlan_name": {
             "value": "ref-plan"
@@ -30,7 +30,7 @@
             "value": "ref-auditingPolicies"
         },
         "storageAccounts_name": {
-            "value":"ref-stor-"
+            "value":"refstor"
         },
         "encryptionProtector_current_name": {
             "value": "ref-encryptionProtector"

@@ -151,7 +151,7 @@
             "tags": {},
             "scale": null,
             "properties": {
-                "ApplicationId": "[concat(parameters('Prefix'),parameters('components_ApplicationInsights_name'))]",
+                "ApplicationId": "[concat(parameters('Prefix'),parameters('components_ApplicationInsights_name'))]"
             },
             "dependsOn": []
         },
