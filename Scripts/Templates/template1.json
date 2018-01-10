@@ -22,10 +22,6 @@
             "defaultValue": "web",
             "type": "string"
         },
-        "databases_master_name": {
-            "defaultValue": "master",
-            "type": "string"
-        },
         "keys_ServiceManaged_name": {
             "defaultValue": "ServiceManaged",
             "type": "string"
@@ -137,6 +133,10 @@
         "backupLongTermRetentionPolicies_Default_name": {
             "defaultValue": "Default",
             "type": "string"
+        },
+        "Notificationhub_namespace_name": {
+            "defaultValue": "hubnamespace",
+            "type": "string"
         }
     },
     "variables": {},
@@ -187,43 +187,10 @@
             ]
         },
         {
-            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/TestDeploy14/providers/Microsoft.Sql/servers/tst14-ref2-dbserver/databases/master'.",
-            "type": "Microsoft.Sql/servers/databases",
-            "kind": "v12.0,system",
-            "name": "[concat(parameters('Prefix'),parameters('dbservers_app_name'), '/', parameters('databases_master_name'))]",
-            "apiVersion": "2014-04-01-preview",
-            "location": "[resourceGroup().location]",
-            "scale": null,
-            "properties": {
-                "databaseId": "0f538209-46b0-498d-8990-a34e2314de70",
-                "edition": "Basic",
-                "status": "Online",
-                "serviceLevelObjective": "Basic",
-                "collation": "SQL_Latin1_General_CP1_CI_AS",
-                "maxSizeBytes": "2147483648",
-                "creationDate": "2018-01-03T21:17:59.477Z",
-                "currentServiceObjectiveId": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c",
-                "requestedServiceObjectiveId": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c",
-                "requestedServiceObjectiveName": "Basic",
-                "sampleName": null,
-                "defaultSecondaryLocation": "West US",
-                "earliestRestoreDate": null,
-                "elasticPoolName": null,
-                "containmentState": 2,
-                "readScale": "Disabled",
-                "failoverGroupId": null,
-                "zoneRedundant": false,
-                "isUpgradeRequested": false
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', concat(parameters('Prefix'),parameters('dbservers_app_name')))]"
-            ]
-        },
-        {
             "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc/databases/KindredPOC'.",
             "type": "Microsoft.Sql/servers/databases",
             "kind": "v12.0,user",
-            "name": "[concat(parameters('Prefix'),parameters('dbservers_app_name'), '/', parameters('databases_app_name'))]",
+            "name": "[concat(parameters('Prefix'),parameters('dbservers_app_name'), '/',parameters('Prefix'), parameters('databases_app_name'))]",
             "apiVersion": "2014-04-01-preview",
             "location": "[resourceGroup().location]",
             "scale": null,
@@ -344,7 +311,7 @@
                 "name": "Free"
             },
             "kind": "NotificationHub",
-            "name": "needparamater-namespace",
+            "name": "[concat(parameters('Prefix'),parameters('Notificationhub_namespace_name'))]",
             "apiVersion": "2014-09-01",
             "location": "[resourceGroup().location]",
             "tags": {},

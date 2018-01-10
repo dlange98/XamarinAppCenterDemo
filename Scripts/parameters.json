@@ -17,9 +17,6 @@
         "config_web_name": {
             "value": "ref-config-web"
         },
-        "databases_master_name": {
-            "value": "ref-mastersqldb"
-        },
         "keys_ServiceManaged_name": {
             "value": "ref-keys"
         },
@@ -42,37 +39,40 @@
             "value": "ref-firewallRules-allowall"
         },
         "advisors_DropIndex_name": {
-            "value": "ref2-advisors-dropindex"
+            "value": "ref-advisors-dropindex"
         },
         "advisors_CreateIndex_name": {
-            "value": "ref2-advisors-createindex"
+            "value": "ref-advisors-createindex"
         },
         "backupLongTermRetentionVaults_RegisteredVault_name": {
-            "value": "ref2-backupLongtermretentionvaults"
+            "value": "ref-backupLongtermretentionvaults"
         },
         "auditingPolicies_Default_name_1": {
-            "value": "ref2-auditingpolicies1"
+            "value": "ref-auditingpolicies1"
         },
         "geoBackupPolicies_Default_name": {
-            "value": "ref2-geobk"
+            "value": "ref-geobk"
         },
         "advisors_ForceLastGoodPlan_name": {
-            "value": "ref2-advisors-flgp"
+            "value": "ref-advisors-flgp"
         },
         "hostNameBindings_oauthbackend.azurewebsites.net_name": {
-            "value": "ref2-hostNameBindings"
+            "value": "ref-hostNameBindings"
         },
         "advisors_DbParameterization_name": {
-            "value": "ref2-advisors-DbParameterization"
+            "value": "ref-advisors-DbParameterization"
         },
         "firewallRules_ClientIPAddress_2017_12_12_10_43_54_name": {
-            "value": "ref2-firewallRules-ClientIPAddress"
+            "value": "ref-firewallRules-ClientIPAddress"
         },
         "transparentDataEncryption_current_name": {
-            "value": "ref2-ransparentDataEncryption"
+            "value": "ref-ransparentDataEncryption"
         },
         "backupLongTermRetentionPolicies_Default_name": {
-            "value": "ref2-backupLongTermRetentionPolicies"
+            "value": "ref-backupLongTermRetentionPolicies"
+        },
+        "Notificationhub_namespace_name": {
+            "Value": "ref-hubnamespace"
         }
     }
 }
