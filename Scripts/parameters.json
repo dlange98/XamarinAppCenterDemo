@@ -2,41 +2,44 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "servers_app_name": {
-            "value": "ref2-servers"
+        "Prefix": {
+            "value": "test-"
+        },
+        "dbservers_app_name": {
+            "value": "ref-dbserver"
         },
         "sites_Backend_name": {
-            "value": "ref2API"
+            "value": "ref-FuncAPI"
         },
         "serverfarms_BackendPlan_name": {
-            "value": "ref2-plan"
+            "value": "ref-plan"
         },
         "config_web_name": {
-            "value": "ref2-config-web"
+            "value": "ref-config-web"
         },
         "databases_master_name": {
-            "value": "ref2sqldb"
+            "value": "ref-mastersqldb"
         },
         "keys_ServiceManaged_name": {
-            "value": "ref2-keys"
+            "value": "ref-keys"
         },
         "databases_app_name": {
-            "value": "ref2databases"
+            "value": "ref-db"
         },
         "auditingPolicies_Default_name": {
-            "value": "ref2-auditingPolicies"
+            "value": "ref-auditingPolicies"
         },
         "storageAccounts_name": {
-            "value":"ref2stor"
+            "value":"ref-stor-"
         },
         "encryptionProtector_current_name": {
-            "value": "ref2-encryptionProtector"
+            "value": "ref-encryptionProtector"
         },
         "components_ApplicationInsights_name": {
-            "value": "ref2-ref2Insights"
+            "value": "ref-ApplicationInsights"
         },
         "firewallRules_AllowAllWindowsAzureIps_name": {
-            "value": "ref2-firewallRules-allowall"
+            "value": "ref-firewallRules-allowall"
         },
         "advisors_DropIndex_name": {
             "value": "ref2-advisors-dropindex"

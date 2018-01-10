@@ -2,7 +2,9 @@ param(
   [Parameter(Mandatory=$True)]
  [string]
  $resourceGroupName,
-
+ [Parameter(Mandatory=$True)]
+ [string]
+ $Pref,
  [string]
  $templateFilePath = ".\Templates\template1.json",
 
@@ -68,7 +70,7 @@ else{
 Write-Host "Starting deployment...";
 
 if(Test-Path $parametersFilePath) {
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath;
+    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath -Prefix $pref;
 } else {
     New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath;
 }

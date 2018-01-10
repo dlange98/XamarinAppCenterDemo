@@ -2,7 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "servers_app_name": {
+        "Prefix": {
+            "defaultValue": "test-",
+            "type": "string"
+        },
+        "dbservers_app_name": {
             "defaultValue": "kindredpoc",
             "type": "string"
         },
@@ -141,13 +145,13 @@
             "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/microsoft.insights/components/OauthBackend_ApplicationInsights'.",
             "type": "microsoft.insights/components",
             "kind": "other",
-            "name": "[parameters('components_ApplicationInsights_name')]",
+            "name": "[concat(parameters('Prefix'),parameters('components_ApplicationInsights_name'))]",
             "apiVersion": "2014-04-01",
-            "location": "eastus",
+            "location": "[resourceGroup().location]",
             "tags": {},
             "scale": null,
             "properties": {
-                "ApplicationId": "[parameters('components_ApplicationInsights_name')]"
+                "ApplicationId": "[concat(parameters('Prefix'),parameters('components_ApplicationInsights_name'))]",
             },
             "dependsOn": []
         },
@@ -155,9 +159,9 @@
             "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc'.",
             "type": "Microsoft.Sql/servers",
             "kind": "v12.0",
-            "name": "[parameters('servers_app_name')]",
+            "name": "[concat(parameters('Prefix'),parameters('dbservers_app_name'))]",
             "apiVersion": "2015-05-01-preview",
-            "location": "eastus",
+            "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
                 "administratorLogin": "hiveadmin",
@@ -165,6 +169,88 @@
                 "version": "12.0"
             },
             "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/TestDeploy14/providers/Microsoft.Sql/servers/tst14-ref2-dbserver/firewallRules/AllowAllWindowsAzureIps'.",
+            "type": "Microsoft.Sql/servers/firewallRules",
+            "kind": "v12.0",
+            "name": "[concat(parameters('Prefix'),parameters('dbservers_app_name'), '/', 'fwrules_AllAzure')]",
+            "apiVersion": "2014-04-01",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+            "properties": {
+                "startIpAddress": "0.0.0.0",
+                "endIpAddress": "0.0.0.0"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers',concat(parameters('Prefix'),parameters('dbservers_app_name')))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/TestDeploy14/providers/Microsoft.Sql/servers/tst14-ref2-dbserver/databases/master'.",
+            "type": "Microsoft.Sql/servers/databases",
+            "kind": "v12.0,system",
+            "name": "[concat(parameters('Prefix'),parameters('dbservers_app_name'), '/', parameters('databases_master_name'))]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+            "properties": {
+                "databaseId": "0f538209-46b0-498d-8990-a34e2314de70",
+                "edition": "Basic",
+                "status": "Online",
+                "serviceLevelObjective": "Basic",
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "2147483648",
+                "creationDate": "2018-01-03T21:17:59.477Z",
+                "currentServiceObjectiveId": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c",
+                "requestedServiceObjectiveId": "dd6d99bb-f193-4ec1-86f2-43d3bccbc49c",
+                "requestedServiceObjectiveName": "Basic",
+                "sampleName": null,
+                "defaultSecondaryLocation": "West US",
+                "earliestRestoreDate": null,
+                "elasticPoolName": null,
+                "containmentState": 2,
+                "readScale": "Disabled",
+                "failoverGroupId": null,
+                "zoneRedundant": false,
+                "isUpgradeRequested": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', concat(parameters('Prefix'),parameters('dbservers_app_name')))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc/databases/KindredPOC'.",
+            "type": "Microsoft.Sql/servers/databases",
+            "kind": "v12.0,user",
+            "name": "[concat(parameters('Prefix'),parameters('dbservers_app_name'), '/', parameters('databases_app_name'))]",
+            "apiVersion": "2014-04-01-preview",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+            "properties": {
+                "databaseId": "69eb95f3-0236-494b-bfb1-8062c939d772",
+                "edition": "Standard",
+                "status": "Online",
+                "serviceLevelObjective": "S0",
+                "collation": "SQL_Latin1_General_CP1_CI_AS",
+                "maxSizeBytes": "21474836480",
+                "creationDate": "2017-12-12T15:15:01.027Z",
+                "currentServiceObjectiveId": "f1173c43-91bd-4aaa-973c-54e79e15235b",
+                "requestedServiceObjectiveId": "f1173c43-91bd-4aaa-973c-54e79e15235b",
+                "requestedServiceObjectiveName": "S0",
+                "sampleName": null,
+                "defaultSecondaryLocation": "West US",
+                "earliestRestoreDate": "2017-12-12T15:45:37.2Z",
+                "elasticPoolName": null,
+                "containmentState": 2,
+                "readScale": "Disabled",
+                "failoverGroupId": null,
+                "zoneRedundant": false,
+                "isUpgradeRequested": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', concat(parameters('Prefix'),parameters('dbservers_app_name')))]"
+            ]
         },
         {
             "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/oauth/providers/Microsoft.Storage/storageAccounts/a65edf37839fb441e9d71f25'.",
@@ -209,7 +295,7 @@
             "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Web/sites/OAuthBackend'.",
             "type": "Microsoft.Web/sites",
             "kind": "functionapp",
-            "name": "[parameters('sites_Backend_name')]",
+            "name": "[concat(parameters('Prefix'), parameters('sites_Backend_name'))]",
             "apiVersion": "2016-08-01",
             "location": "[resourceGroup().location]",
             "tags": {
@@ -220,7 +306,7 @@
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_Backend_name'),'.azurewebsites.net')]",
+                        "name": "[concat(parameters('Prefix'), parameters('sites_Backend_name'),'.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "virtualIP": null,
                         "thumbprint": null,
@@ -228,7 +314,7 @@
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('sites_Backend_name'),'.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('Prefix'), parameters('sites_Backend_name'),'.scm.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "virtualIP": null,
                         "thumbprint": null,
@@ -250,55 +336,6 @@
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_BackendPlan_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc/databases/KindredPOC'.",
-            "type": "Microsoft.Sql/servers/databases",
-            "kind": "v12.0,user",
-            "name": "[concat(parameters('servers_app_name'), '/', parameters('databases_app_name'))]",
-            "apiVersion": "2014-04-01",
-            "location": "[resourceGroup().location]",
-            "scale": null,
-            "properties": {
-                "databaseId": "69eb95f3-0236-494b-bfb1-8062c939d772",
-                "edition": "Standard",
-                "status": "Online",
-                "serviceLevelObjective": "S0",
-                "collation": "SQL_Latin1_General_CP1_CI_AS",
-                "maxSizeBytes": "21474836480",
-                "creationDate": "2017-12-12T15:15:01.027Z",
-                "currentServiceObjectiveId": "f1173c43-91bd-4aaa-973c-54e79e15235b",
-                "requestedServiceObjectiveId": "f1173c43-91bd-4aaa-973c-54e79e15235b",
-                "requestedServiceObjectiveName": "S0",
-                "sampleName": null,
-                "defaultSecondaryLocation": "West US",
-                "earliestRestoreDate": "2017-12-12T15:45:37.2Z",
-                "elasticPoolName": null,
-                "containmentState": 2,
-                "readScale": "Disabled",
-                "failoverGroupId": null,
-                "zoneRedundant": false,
-                "isUpgradeRequested": false
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_app_name'))]"
-            ]
-        },
-        {
-            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourceGroups/OAUTH/providers/Microsoft.Sql/servers/kindredpoc/firewallRules/AllowAllWindowsAzureIps'.",
-            "type": "Microsoft.Sql/servers/firewallRules",
-            "kind": "v12.0",
-            "name": "[concat(parameters('servers_app_name'), '/', parameters('firewallRules_AllowAllWindowsAzureIps_name'))]",
-            "apiVersion": "2014-04-01",
-            "location": "[resourceGroup().location]",
-            "scale": null,
-            "properties": {
-                "startIpAddress": "0.0.0.0",
-                "endIpAddress": "0.0.0.0"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers', parameters('servers_app_name'))]"
             ]
         },
         {
