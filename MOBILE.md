@@ -195,6 +195,20 @@ Follow the sections that describe configuring push notifications for each platfo
 
 To add push notifications to android follow the [Android push notifications](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/notification-hubs/xamarin-notification-hubs-push-notifications-android-gcm.md)
 
+Note after you complete the steps in the link above you need to add the following to the `AndroidManifest.xml` file. The _category:name_ need to match the projects package name.
+
+```
+  <receiver
+    android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+    android:exported="true"
+    android:permission="com.google.android.c2dm.permission.SEND" >
+    <intent-filter>
+          <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+          <category android:name="com.cardinal.testpushdan" />
+    </intent-filter>
+  </receiver>
+```
+
 ### iOS
 
 To add push notification to iOS follow [iOS push notifications](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/notification-hubs/xamarin-notification-hubs-ios-push-notification-apns-get-started.md)
