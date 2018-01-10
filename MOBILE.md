@@ -186,3 +186,15 @@ protected SQLiteConnection getDBConnection()
 ```
 
 In order to create a local sqlite DB, the `FileManager` code needs to be implemented in the native project for iOS and Android. This is due to the fact we are accessing the native file system of each platform. The [_Xamarin Dependency service_](https://developer.xamarin.com/guides/xamarin-forms/application-fundamentals/dependency-service/introduction/) is being used to ensure the correct code is being called for each platform.
+
+## Push Notifications
+
+Follow the sections that describe configuring push notifications for each platform. Note we are modifying the native apps given notifications are are native to each platform.
+
+### Android
+
+To add push notifications to android follow the [Android push notifications](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/notification-hubs/xamarin-notification-hubs-push-notifications-android-gcm.md)
+
+### iOS
+
+To add push notification to iOS follow [iOS push notifications](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/notification-hubs/xamarin-notification-hubs-ios-push-notification-apns-get-started.md)
