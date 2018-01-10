@@ -5,6 +5,7 @@ using Android.App;
 using Android.Content;
 using Android.Util;
 using Firebase.Messaging;
+using Xamarin.Forms;
 
 
 namespace Refapp.Droid.Services
@@ -47,6 +48,12 @@ namespace Refapp.Droid.Services
             var notificationManager = NotificationManager.FromContext(this);
 
             notificationManager.Notify(0, notificationBuilder.Build());
+
+            // just for fun, a 'custom' alert in the app
+            Device.BeginInvokeOnMainThread(() => {
+                Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Notification", messageBody, "OK");
+            });
+
         }
     }
 }
