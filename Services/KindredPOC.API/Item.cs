@@ -162,14 +162,13 @@ namespace KindredPOC.API
                 NotificationOutcome outcome2 = null;
 
                 string[] tags = new string[0]; // no tags - just broadcast
-
-                var notif = "{ \"data\" : {\"message\":\"" + string.Format("{0}", Message) + "\"}}";
+                GCM_Msg msg = new GCM_Msg { notification= new Notification { body= Message } };
                 //Andriod
-                outcome = await hubClient.SendGcmNativeNotificationAsync(notif);
+                outcome = await hubClient.SendGcmNativeNotificationAsync(JsonConvert.SerializeObject(msg));
                 //Apple APNS {"aps":{"alert":"Notification Hub test notification"}}
-                notif = "{ \"aps\" : {\"alert\":\"" + string.Format("{0}", Message) + "\"}}";
+                //string aplnotif = "{ \"aps\" : {\"alert\":\"" + string.Format("{0}", Message) + "\"}}";
                 //Apple
-                //outcome2 = await hubClient.SendAppleNativeNotificationAsync(notif); //tmp removed until portal setup for apple
+                //outcome2 = await hubClient.SendAppleNativeNotificationAsync(aplnotif); //tmp removed until portal setup for apple
 
                 //manage outcomes if it's a usecase
             }
@@ -182,6 +181,24 @@ namespace KindredPOC.API
             {
                 telemetry.TrackException(ex);
             }
+        }
+        internal class GCM_Msg
+        {
+            public string to { get; set; }
+            public string priority { get; set; }
+            public Notification notification { get; set; }
+            public Data data { get; set; }
+        }
+        internal class Data
+        {
+            public string volume { get; set; }
+            public string contents { get; set; }
+        }
+        internal class Notification
+        {
+            public string body { get; set; }
+            public string title { get; set; }
+            public string icon { get; set; }
         }
     }
 }

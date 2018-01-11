@@ -23,7 +23,7 @@ namespace TestHarness
             Console.WriteLine("processing Get request tests to API");
             ClearToken(authority).Wait();
             var token = GetToken().Result;
-            Item itemobj = new Item { Id = Guid.NewGuid().ToString(), Text = $"{DateTime.Now.ToString()} :: API Post from Console App", Description = "This is a post from the console App proving I can create an access token from the console" };
+            Item itemobj = new Item { Id = Guid.NewGuid().ToString(), Text = $"Console App Test {DateTime.Now.ToString()} :: API Post from Console App", Description = "Console App Test proving I can create an access token from the console" };
             Item itemn =  PostItem(token,itemobj).Result;
             Console.WriteLine($"Created Item ID {itemn.Id}");
             string itemsreply = GetItems(token);
