@@ -70,7 +70,7 @@ else{
 Write-Host "Starting deployment...";
 
 if(Test-Path $parametersFilePath) {
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath -Prefix $pref;
+    New-AzureRmResourceGroupDeployment -Name KindredReferenceAppDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath -Prefix $pref;
 } else {
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath;
+    New-AzureRmResourceGroupDeployment -Name KindredReferenceAppDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath;
 }

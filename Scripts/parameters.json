@@ -6,73 +6,76 @@
             "value": "test-"
         },
         "dbservers_app_name": {
-            "value": "ref-dbserver"
+            "value": "dbserver"
         },
         "sites_Backend_name": {
-            "value": "refAPI"
+            "value": "FuncAPI"
         },
         "serverfarms_BackendPlan_name": {
-            "value": "ref-plan"
+            "value": "serviceplan"
         },
         "config_web_name": {
-            "value": "ref-config-web"
+            "value": "config-web"
         },
         "keys_ServiceManaged_name": {
-            "value": "ref-keys"
+            "value": "keys"
         },
         "databases_app_name": {
-            "value": "ref-db"
+            "value": "db"
         },
         "auditingPolicies_Default_name": {
-            "value": "ref-auditingPolicies"
+            "value": "auditingPolicies"
         },
         "storageAccounts_name": {
             "value":"refstor"
         },
         "encryptionProtector_current_name": {
-            "value": "ref-encryptionProtector"
+            "value": "encryptionProtector"
         },
         "components_ApplicationInsights_name": {
-            "value": "ref-ApplicationInsights"
+            "value": "ApplicationInsights"
         },
         "firewallRules_AllowAllWindowsAzureIps_name": {
-            "value": "ref-firewallRules-allowall"
+            "value": "firewallRules-allowall"
         },
         "advisors_DropIndex_name": {
-            "value": "ref-advisors-dropindex"
+            "value": "advisors-dropindex"
         },
         "advisors_CreateIndex_name": {
-            "value": "ref-advisors-createindex"
+            "value": "advisors-createindex"
         },
         "backupLongTermRetentionVaults_RegisteredVault_name": {
-            "value": "ref-backupLongtermretentionvaults"
+            "value": "backupLongtermretentionvaults"
         },
         "auditingPolicies_Default_name_1": {
-            "value": "ref-auditingpolicies1"
+            "value": "auditingpolicies1"
         },
         "geoBackupPolicies_Default_name": {
-            "value": "ref-geobk"
+            "value": "geobk"
         },
         "advisors_ForceLastGoodPlan_name": {
-            "value": "ref-advisors-flgp"
+            "value": "advisors-flgp"
         },
         "hostNameBindings_oauthbackend.azurewebsites.net_name": {
-            "value": "ref-hostNameBindings"
+            "value": "hostNameBindings"
         },
         "advisors_DbParameterization_name": {
-            "value": "ref-advisors-DbParameterization"
+            "value": "advisors-DbParameterization"
         },
         "firewallRules_ClientIPAddress_2017_12_12_10_43_54_name": {
-            "value": "ref-firewallRules-ClientIPAddress"
+            "value": "firewallRules-ClientIPAddress"
         },
         "transparentDataEncryption_current_name": {
-            "value": "ref-ransparentDataEncryption"
+            "value": "TransparentDataEncryption"
         },
         "backupLongTermRetentionPolicies_Default_name": {
-            "value": "ref-backupLongTermRetentionPolicies"
+            "value": "backupLongTermRetentionPolicies"
         },
         "Notificationhub_namespace_name": {
-            "Value": "ref-hubnamespace"
+            "value": "hubnamespace"
+        },
+        "notificationHubs_notificationhub_name":{
+            "value": "notificationhub"
         }
     }
 }

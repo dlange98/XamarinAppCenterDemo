@@ -137,6 +137,10 @@
         "Notificationhub_namespace_name": {
             "defaultValue": "hubnamespace",
             "type": "string"
+        },
+        "notificationHubs_notificationhub_name":{
+            "defaultValue": "refapp-notificationhub",
+            "type": "string"
         }
     },
     "variables": {},
@@ -242,12 +246,12 @@
                 "capacity": 0
             },
             "kind": "functionapp",
-            "name": "[parameters('serverfarms_BackendPlan_name')]",
+            "name": "[concat(parameters('Prefix'),parameters('serverfarms_BackendPlan_name'))]",
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
             "scale": null,
             "properties": {
-                "name": "[parameters('serverfarms_BackendPlan_name')]",
+                "name": "[concat(parameters('Prefix'),parameters('serverfarms_BackendPlan_name'))]",
                 "workerTierName": null,
                 "adminSiteName": null,
                 "hostingEnvironmentProfile": null,
@@ -289,7 +293,7 @@
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_BackendPlan_name'))]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat(parameters('Prefix'),parameters('serverfarms_BackendPlan_name')))]",
                 "reserved": false,
                 "siteConfig": null,
                 "scmSiteAlsoStopped": false,
@@ -302,7 +306,7 @@
                 "cloningInfo": null
             },
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_BackendPlan_name'))]"
+                "[resourceId('Microsoft.Web/serverfarms', concat(parameters('Prefix'),parameters('serverfarms_BackendPlan_name')))]"
             ]
         },
         {
@@ -320,6 +324,20 @@
                 "namespaceType": "NotificationHub"
             },
             "dependsOn": []
+        }, {
+            "comments": "Generalized from resource: '/subscriptions/49d2bd74-bcdc-4235-ac33-fa634db1e0c9/resourcegroups/OAUTH/providers/Microsoft.NotificationHubs/namespaces/RefApp-NotificationHubNamespace/notificationHubs/refapp-notificationhub'.",
+            "type": "Microsoft.NotificationHubs/namespaces/notificationHubs",
+            "name": "[concat(parameters('Prefix'),parameters('Notificationhub_namespace_name'), '/',parameters('Prefix'), parameters('notificationHubs_notificationhub_name'))]",
+            "apiVersion": "2014-09-01",
+            "location": "East US",
+            "scale": null,
+            "properties": {
+                "authorizationRules": []
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.NotificationHubs/namespaces', concat(parameters('Prefix'),parameters('Notificationhub_namespace_name')))]"
+            ]
         }
+    
     ]
 }

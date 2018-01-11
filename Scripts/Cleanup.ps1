@@ -1,0 +1,1 @@
+Get-AzureRmResourceGroup -Name "TestDeploy02" | Remove-AzureRmResourceGroup -Verbose -Force
