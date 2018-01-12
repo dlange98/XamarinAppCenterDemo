@@ -165,6 +165,7 @@ namespace KindredPOC.API
                 GCM_Msg msg = new GCM_Msg { notification= new Notification { body= Message } };
                 //Andriod
                 outcome = await hubClient.SendGcmNativeNotificationAsync(JsonConvert.SerializeObject(msg));
+                
                 //Apple APNS {"aps":{"alert":"Notification Hub test notification"}}
                 //string aplnotif = "{ \"aps\" : {\"alert\":\"" + string.Format("{0}", Message) + "\"}}";
                 //Apple
@@ -179,6 +180,7 @@ namespace KindredPOC.API
             }
             catch (Exception ex)
             {
+                // dont break on Notification Failures
                 telemetry.TrackException(ex);
             }
         }

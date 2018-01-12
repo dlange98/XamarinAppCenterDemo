@@ -76,6 +76,9 @@
         },
         "notificationHubs_notificationhub_name":{
             "value": "notificationhub"
+        },
+        "oms_workspaces_name":{
+            "value": "opInsights"
         }
     }
 }
