@@ -2,74 +2,83 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "servers_app_name": {
-            "value": "ref2-servers"
+        "Prefix": {
+            "value": "test-"
+        },
+        "dbservers_app_name": {
+            "value": "dbserver"
         },
         "sites_Backend_name": {
-            "value": "ref2API"
+            "value": "FuncAPI"
         },
         "serverfarms_BackendPlan_name": {
-            "value": "ref2-plan"
+            "value": "serviceplan"
         },
         "config_web_name": {
-            "value": "ref2-config-web"
-        },
-        "databases_master_name": {
-            "value": "ref2sqldb"
+            "value": "config-web"
         },
         "keys_ServiceManaged_name": {
-            "value": "ref2-keys"
+            "value": "keys"
         },
         "databases_app_name": {
-            "value": "ref2databases"
+            "value": "db"
         },
         "auditingPolicies_Default_name": {
-            "value": "ref2-auditingPolicies"
+            "value": "auditingPolicies"
         },
         "storageAccounts_name": {
-            "value":"ref2stor"
+            "value":"refstor"
         },
         "encryptionProtector_current_name": {
-            "value": "ref2-encryptionProtector"
+            "value": "encryptionProtector"
         },
-        "components_OauthBackend_ApplicationInsights_name": {
-            "value": "ref2-ref2Insights"
+        "components_ApplicationInsights_name": {
+            "value": "ApplicationInsights"
         },
         "firewallRules_AllowAllWindowsAzureIps_name": {
-            "value": "ref2-firewallRules-allowall"
+            "value": "firewallRules-allowall"
         },
         "advisors_DropIndex_name": {
-            "value": "ref2-advisors-dropindex"
+            "value": "advisors-dropindex"
         },
         "advisors_CreateIndex_name": {
-            "value": "ref2-advisors-createindex"
+            "value": "advisors-createindex"
         },
         "backupLongTermRetentionVaults_RegisteredVault_name": {
-            "value": "ref2-backupLongtermretentionvaults"
+            "value": "backupLongtermretentionvaults"
         },
         "auditingPolicies_Default_name_1": {
-            "value": "ref2-auditingpolicies1"
+            "value": "auditingpolicies1"
         },
         "geoBackupPolicies_Default_name": {
-            "value": "ref2-geobk"
+            "value": "geobk"
         },
         "advisors_ForceLastGoodPlan_name": {
-            "value": "ref2-advisors-flgp"
+            "value": "advisors-flgp"
         },
         "hostNameBindings_oauthbackend.azurewebsites.net_name": {
-            "value": "ref2-hostNameBindings"
+            "value": "hostNameBindings"
         },
         "advisors_DbParameterization_name": {
-            "value": "ref2-advisors-DbParameterization"
+            "value": "advisors-DbParameterization"
         },
         "firewallRules_ClientIPAddress_2017_12_12_10_43_54_name": {
-            "value": "ref2-firewallRules-ClientIPAddress"
+            "value": "firewallRules-ClientIPAddress"
         },
         "transparentDataEncryption_current_name": {
-            "value": "ref2-ransparentDataEncryption"
+            "value": "TransparentDataEncryption"
         },
         "backupLongTermRetentionPolicies_Default_name": {
-            "value": "ref2-backupLongTermRetentionPolicies"
+            "value": "backupLongTermRetentionPolicies"
+        },
+        "Notificationhub_namespace_name": {
+            "value": "hubnamespace"
+        },
+        "notificationHubs_notificationhub_name":{
+            "value": "notificationhub"
+        },
+        "oms_workspaces_name":{
+            "value": "opInsights"
         }
     }
 }
