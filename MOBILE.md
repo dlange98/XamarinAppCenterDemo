@@ -14,11 +14,11 @@ The mobile app projects in the _RefApp_ solution consists of five projects:
 
 ### Initial Project Creation
 
-Follow the standard mobile app solution creation process in Visual Studio. Select the Blank forms app, then select use Portable Class Library, this will create the 3 main forms projects in the solution. The add automated UI test project can also be selected at this time. This will create a forms PCL (Portable Class Library) project which needs to be converted to a `.NET 2.0 standard` project. See the steps in the next section to convert the project.
+Follow the standard mobile app solution creation process in Visual Studio. Select the Blank forms app, then select use Portable Class Library, this will create the 3 main forms projects in the solution. The _add automated UI tests project_ can also be selected at this time. This will create a forms PCL (Portable Class Library) project which needs to be converted to a `.NET 2.0 standard` project. See the steps in the next section to convert the project.
 
 ### Convert the Forms Project to the .NET 2.0 standard
 
-The .NET 2.0 project standard is the latest and greatest project structure to allow sharing of code between applications. This new standard replaces the PCL standard. Note, the IOS and Android app are each built as a separate app. The forms app is linked to each of the two app executables. To convert to `.NET 2.0`, you need to create a new project and copy the source from the 'old' project to the new one. A summary of the steps is outlined below and can be found in detail at [Building Xamarin Forms with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/).
+The .NET 2.0 project standard is the latest and greatest project structure to allow sharing of code between projects. This new standard supplants the PCL standard. Note, the IOS and Android app are each built as a separate app. The forms app is linked to each of the two app executables. To convert to `.NET Standard 2.0`, you need to create a new project and copy the source from the 'old' project to the new one. A summary of the steps is outlined below and can be found in detail at [Building Xamarin Forms with .NET Standard](https://blog.xamarin.com/building-xamarin-forms-apps-net-standard/).
 
 1. Verify that .NET Core 2.0 is installed.
 2. Add a new project to the solution that is a .NET standard. Do this by selecting Library under .NET Core when creating a new project in the Visual Studio.
@@ -29,7 +29,7 @@ The .NET 2.0 project standard is the latest and greatest project structure to al
 7. Delete the old PCL project.
 8. Add the Microsoft.NETCore.Portable.Compatability via NuGet to the new Forms Project.
 
-The last step will allow adding PCL standard frameworks to link with the new .NET 2.0 Standard [.NET Standard support](https://blog.xamarin.com/net-standard-library-support-for-xamarin/). So the goal with the NuGet packages is to use the .NET 2.0 Standard library if one exists. If not, the PCL library 'may' function, but not always.
+The last step will allow adding PCL standard frameworks to link with the new .NET 2.0 Standard [.NET Standard support](https://blog.xamarin.com/net-standard-library-support-for-xamarin/). So the goal with the NuGet packages is to use the .NET 2.0 Standard library if one exists. If a .net standard library does not exists, the use of a PCL library 'may' function, but not always.
 
 ### Packages added via NuGet to all Projects (except the tests projects)
 
@@ -62,7 +62,7 @@ The following packages where added to the projects in addition to the packages a
 
 ## Project Structure
 
-The main project as well as the iOS and Android project follow this pattern. 95 percent of the source code is found in the `RefApp` project. This project is broken up into the following folder structure:
+The main project as well as the iOS and Android project follow this pattern. 95 percent of the source code is found in the `RefApp` project. Each project follows the folder structure below:
 
 - `Configuration` - This contains the `Settings.cs` file. All configurable variables such as AppServiceURL are located in this folder.
 - `DAO` - Data access classes are located in this folder.
@@ -75,7 +75,7 @@ The main project as well as the iOS and Android project follow this pattern. 95 
 
 The structure of the Android project has a few changes and additions to the generated code.
 
-- `MainActivity.cs` contians the following code for authentication:
+- `MainActivity.cs` contains the following code that is need for the authentication mechanism:
 
   ```
   protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -85,7 +85,7 @@ The structure of the Android project has a few changes and additions to the gene
   }
   ```
 
-- `Services` - The implementation for the FileManager and the AuthenticationServices interfaces that are invoked in the Forms project.
+- `Services` - This file contains the implementation for the FileManager and the AuthenticationServices interfaces that are invoked in the Forms project.
 
 ### iOS Project
 
@@ -116,13 +116,13 @@ The next line displays the login process to the user. Note this is an OATH type 
   var authResult = await authContext.AcquireTokenAsync(resource, clientId, new Uri(returnUri), authParam);
 ```
 
-After the user has successfully completed the login process, the login dialog is dismissed and the _authResult_ contains our token that we embedded in the APIs calls. The following line of code pulls out the accessToken from the _authResult_ object:
+After the user has successfully completed the login process, the login dialog is dismissed and the _authResult_ contains the security token that is embedded in the APIs calls. The following line of code pulls out the accessToken from the _authResult_ object:
 
 ```
  AccessToken = authResult.AccessToken
 ```
 
-Note the _LoginAsync_ method in the `CloudDataStore.cs` class persists the token to the local data store after a successful login. This token is then retrieved from the data store and placed in the header, before each server api call, in the method _UpdateAuthHeaderToken_. The following code where the auth token is being updated before each API call:
+Note the _LoginAsync_ method in the `CloudDataStore.cs` class persists the token to the local data store after a successful login. This token is then retrieved from the data store and placed in the header before each server api call. This token logic is located in the method _UpdateAuthHeaderToken_. The following code is where the auth token is being updated before each API call:
 
 ```
 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Token);
@@ -130,7 +130,7 @@ client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bear
 
 ### Security Configuration
 
-The settings.cs file contains the configuration for authentication. The following elements need to be configured:
+The `settings.cs` file contains the configuration for authentication. The following elements need to be configured:
 
 - `TenateId` - This is the ID of the Azure Tenant. It can be found in the Azure ActiveDirectory portal under properties.
 - `ResourceId` - The is the id of the server side API project resource. The individual that configures the server API can provide this information.
@@ -163,15 +163,13 @@ var response = await client.PostAsync($"api/item", new StringContent(serializedI
 
 ## Local Persistance
 
-Local persistence in the Android and iOS apps use a local sqlite database. In this application the access token is being persisted to sqlite via the `AccessTokenDAO`. Note the following lines of code persist the token object:
+Local persistence in the Android and iOS apps are implemented with a sqlite database. In this app, the access token is being persisted to sqlite via the `AccessTokenDAO`. Note the following lines of code persist the token object:
 
 ```
-...
 var db = getDBConnection();
 db.BeginTransaction();
 db.Insert(token);
 db.Commit();
-...
 ```
 
 The _getDBConnection_ method is implemented in the `BaseDAO.cs` class.
@@ -189,11 +187,11 @@ In order to create a local sqlite DB, the `FileManager` code needs to be impleme
 
 ## Push Notifications
 
-Follow the sections that describe configuring push notifications for each platform. Note we are modifying the native apps given notifications are are native to each platform.
+Follow the the documentation in the links that describe configuring push notifications for each platform. Note we are modifying the native apps, given notifications are are native to each platform.
 
 ### Android
 
-To add push notifications to android follow the [Android push notifications](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/notification-hubs/xamarin-notification-hubs-push-notifications-android-gcm.md)
+To add push notifications to android follow the doc: [Android push notifications](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/notification-hubs/xamarin-notification-hubs-push-notifications-android-gcm.md)
 
 Note after you complete the steps in the link above you need to add the following to the `AndroidManifest.xml` file. The _category:name_ need to match the projects package name.
 
@@ -212,3 +210,5 @@ Note after you complete the steps in the link above you need to add the followin
 ### iOS
 
 To add push notification to iOS follow [iOS push notifications](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/notification-hubs/xamarin-notification-hubs-ios-push-notification-apns-get-started.md)
+
+No other modifications are needed in the code for iOS.

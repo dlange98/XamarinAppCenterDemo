@@ -1,10 +1,10 @@
 # RefApp Mobile Dev Ops Guild
 
-This document describes the dev ops process and features for the iOS and Android RefApps. The dev ops process uses the [Visual Studio App Center](https://www.visualstudio.com/app-center/)
+This document describes the dev ops process and features for the iOS and Android RefApps. The dev ops process uses [Visual Studio App Center](https://www.visualstudio.com/app-center/)
 
 ## Continuous Integration
 
-The iOS and Android CI processes are using _AppCenters_ build feature. The build process does not require modification of the project or the code itself.
+The iOS and Android CI processes are using the _AppCenter's_ build functionality. The build process does not require modification of the project or the code itself.
 
 ### Configure the build
 
@@ -12,10 +12,10 @@ Perform the following to configure the build. Once you have created a new app in
 
 1. link to your repository. In this case we are linking to VSTS.
 2. Select a branch.
-3. Select Build frequency. Normally this is set to build on every push. This will provide a true CI process where code is built, tested and pushed on every checkin. One could configure multiple branches to allow for pushing builds to different groups at different times.
-4. Select Sign the build - This will allow distribution of the builds.
-5. Select auto increment build number. This will allow identification of each build. Normally this build number is displayed in the app.
-6. Select distribute the builds - This will distribute the builds to the a chosen group of users. By default, the users that are tied to the current app are selected.
+3. Select Build frequency. Normally this is set to build on every push. This will provide a true _Continuous Delivery_ process where code is built, tested, and app deployed on every git push. One could configure multiple branches to allow for deploying builds to different groups at different times.
+4. Select Sign the build - This is needed to allow distribution of the builds.
+5. Select auto increment build number. This will allow identification of each build. Normally this build number is displayed somewhere in the app.
+6. Select distribute the builds - This will distribute the builds to a chosen group of users. By default, the users that are tied to the current app are selected.
 
 The exact steps are documented here: [iOS build](https://docs.microsoft.com/en-us/appcenter/build/ios/), [Android Build](https://docs.microsoft.com/en-us/appcenter/build/android/).
 
@@ -31,7 +31,7 @@ The `UnitTest.cs` file contains a few sample Unit tests. An interesting test to 
 
 ### UITesting
 
-The UITests are configured in the `AppInitializer.cs`. Note both iOS and Android need to be configured. The app must be installed on the simulator or emulator before running the tests. Also note the Device Identifier line for the iOS App. This identifies a specific emulator. You can find the ID of a currently running iOS emulator with the following command:
+The UITests are configured in the `AppInitializer.cs` of the _RefAppUITTest_ project. Note both iOS and Android need to be configured. The app must be installed on the simulator or emulator before running the tests. Also note the Device Identifier line for the iOS App. This identifies a specific emulator. You can find the ID of a currently running iOS emulator with the following command:
 
 ```
 xcrun simctl list | egrep '(Booted)'
@@ -55,7 +55,7 @@ To run the test from the IDE simple select the _NUnit test view_ and right click
 
 ### Running the tests as part of the build.
 
-At this time you are not able to run unit tests as part of the automated build on App Center. However, the following is a post build script that runs the tests for the RefApp project:
+At this time you are not able to run unit tests as part of the automated build on App Center. However, the following is a _post build_ script that runs the tests for the RefApp project during the build:
 
 ```
 #!/usr/bin/env bash
@@ -91,7 +91,7 @@ Note if one of the test fails the script will throw a exit code 1 of which will 
 
 ## App Center - Test Cloud
 
-App Center Test Cloud allows running the unit tests on many devices. This reduces the need to have the many models of devices in house. The tests are initialed from the command line of a local machine. The results will be displayed in the App Center console.
+App Center Test Cloud allows running the unit tests on many devices. This reduces the need to have the many models of devices in house. The tests are initiated from the command line of a local machine. The results will be displayed in the App Center console.
 
 Perform the following steps to create a test run. See [Preparing Xamarin.UITests for Upload](https://docs.microsoft.com/en-us/appcenter/test-cloud/preparing-for-upload/uitest) for details.
 
@@ -161,7 +161,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-              typeof(Analytics), typeof(Crashes));
+             typeof(Analytics), typeof(Crashes));
   ```
 
 The above example adds both Analytics and Crash detection to your application.
@@ -183,7 +183,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-              typeof(Analytics), typeof(Crashes));
+             typeof(Analytics), typeof(Crashes));
   ```
 
   ## Analytics
