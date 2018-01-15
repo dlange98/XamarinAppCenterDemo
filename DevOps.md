@@ -26,3 +26,9 @@ One of the best mechanism to ensure that functionality is still reliable is to i
 ## Automated Deployment
 
 Finally, the service can be automatically deployed into operations.  This may be a development, testing, staging, or even production environments.
+
+<UL>
+References:
+<li><a href="https://blogs.msdn.microsoft.com/visualstudioalmrangers/2017/10/04/azure-function-ci-cd-devops-pipeline/">Azure Functions – CI / CD DevOps Pipeline</a></li>
+<li><a href="https://blogs.msdn.microsoft.com/visualstudioalmrangers/2017/09/12/azure-function-provisioning-and-configuring-our-azure-function-infrastructure/">Azure Function – Provisioning and configuring our Azure Function infrastructure</a></li>
+</UL>
