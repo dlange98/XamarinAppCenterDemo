@@ -124,10 +124,10 @@ For IOS
 For Android:
 
 ```
-appcenter test run uitest --app "Roland.Robertson/droid.refapp.kindred.com" --devices 0401170d --app-path pathToFile.apk  --test-series "launch-tests" --locale "en_US" --build-dir pathToUITestBuildDir
+appcenter test run uitest --app "Roland.Robertson/droid.refapp.kindred.com" --devices 0401170d --app-path pathToFile.apk  --test-series "launch-tests" --locale "en_US" --build-dir ./RefappUITest/bin/Debug/
 ```
 
-- Note the `--build-dir` in the RefApp is located at _./RefAppUITTest/bin/Debug/_
+- Note the `--build-dir` in the RefApp solution is located at _./RefAppUITTest/bin/Debug/_
 - Note the `--app-path` is located at the location where the IPA or APK file was placed when it was created. You will need to create a debug version of the IPA or APK to run the tests.
 
   Once app is uploaded it will take 5 to 20 minutes to test the app. You can close the command line and the testing will continue.
@@ -161,7 +161,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-             typeof(Analytics), typeof(Crashes));
+            typeof(Analytics), typeof(Crashes));
   ```
 
 The above example adds both Analytics and Crash detection to your application.
@@ -183,7 +183,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-             typeof(Analytics), typeof(Crashes));
+            typeof(Analytics), typeof(Crashes));
   ```
 
   ## Analytics
