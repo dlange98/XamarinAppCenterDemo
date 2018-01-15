@@ -8,13 +8,19 @@ namespace Refapp.Configuration
         /* URL for our rest services */
         public static string AppServiceURL = "https://oauthbackend.azurewebsites.net";
 
-        /* Settins for authenticating against asure ad */
+        /* Settings for authenticating against asure ad */
         public static string TenantId = "https://login.windows.net/414efc33-68fe-4520-802f-aea4401192d0";
         public static string ResourceId = "1c96f60e-5d95-47b0-b113-a1837b99f623";
         public static string ClientId = "8d08c14d-1fab-4cbc-8766-b02816e8589a";
         public static string ReturnUrl = $"https://localhost";
 
-        /* Settings for App Center */
+        /* Settings for Notification Hub */
+        public const string ListenConnectionString = "Endpoint=sb://referenceappnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=68+L8EhRO1QenJlkoFi5DErckR5ylD1qrpL5A5OMQYY=";
+        public const string NotificationHubName = "ReferenceAppHub";
 
+        //public const string ListenConnectionString = "Endpoint=sb://danshubnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=CoHnbKzB657gxKrLb52n8hGo6LDgQ/9dgHIe0z4xuBY=";
+        //public const string NotificationHubName = "DansHubNamespace";
+
+  
     }
 }

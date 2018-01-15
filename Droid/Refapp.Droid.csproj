@@ -203,7 +203,6 @@
     <Compile Include="Services\FileManager.cs" />
     <Compile Include="Services\FirebaseIIDService.cs" />
     <Compile Include="Services\MyFirebaseMessagingService.cs" />
-    <Compile Include="Configuration\Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon.png" />

@@ -5,7 +5,7 @@ using Firebase.Iid;
 using Android.Util;
 using WindowsAzure.Messaging;
 using System.Collections.Generic;
-using Refapp.Droid.Configuration;
+using Refapp.Configuration;
 namespace Refapp.Droid.Services
 {
     [Service]
@@ -25,8 +25,12 @@ namespace Refapp.Droid.Services
         void SendRegistrationToServer(string token)
         {
             // Register with Notification Hubs
+            //hub = new NotificationHub(Settings.NotificationHubName,
+                                      //Settings.ListenConnectionString, this);
+
             hub = new NotificationHub(Settings.NotificationHubName,
-                                      Settings.ListenConnectionString, this);
+                           Settings.ListenConnectionString, this);
+
 
             var tags = new List<string>() { };
             var regID = hub.Register(token, tags.ToArray()).RegistrationId;
