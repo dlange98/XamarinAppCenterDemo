@@ -16,3 +16,9 @@ Example of monitoring view
 Operations Management Suite (also known as OMS) is a collection of management services that were designed for use in Azure. In this reference architecture we are utilizing it's Log Analytics functionality.  Howerever it can also provide roles in automation, backup, and recovery operations.
 
 In this simplistic setup OMS doesn't add much value.  In much larger installations it would provide insight across multiple service endpoints, data repository performance, and provisional network infrastructure.  This would allow for ensuring system health and ensuring SLA levels.
+
+<UL>
+References:
+<li><a href="https://docs.microsoft.com/en-us/azure/application-insights/app-insights-cloudservices">Application Insights for Azure Cloud Services</a></li>
+<li><a href="https://github.com/Azure/Azure-Functions/wiki/App-Insights/">Application Insights + Azure Functions experience overview</a></li>
+</UL>
