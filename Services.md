@@ -11,3 +11,10 @@ The Microservice for the Item class demonstrates a basic CRUD (CReate, Update, D
 
 ### Overall Layout
 ![Service API Design](https://abaf81c44da6f407f97a8bac.blob.core.windows.net/screenshots/ServiceArchitecture.png)
+
+<UL>
+References:
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/microservices/">Designing, building, and operating microservices on Azure</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-overview-microservices/">Why a microservices approach to building applications?</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview">An introduction to Azure Functions</a></li>
+</UL>
