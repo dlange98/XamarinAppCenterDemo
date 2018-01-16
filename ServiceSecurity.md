@@ -51,3 +51,12 @@ The Client ID required for token generation is the Application ID of the new Reg
 
 ### 3.0 CORS for Service API ###
 Currently CORS is set to "*" which allows all.  For mobile use with authentication CORS is not applicable.
+
+<UL>
+References:
+<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-protocols-oauth-code">Authorize access to web applications using OAuth 2.0 and Azure Active Directory</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-authentication-scenarios">Authentication Scenarios for Azure AD</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-tokens">Azure Active Directory v2.0 tokens reference</a></li>
+<li><a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings" >How to manage a function app in the Azure portal</a></li>
+<li><a href="https://contos.io/working-with-identity-in-an-azure-function-1a981e10b900">Working with identity in an Azure Function</a></li>
+</UL>
