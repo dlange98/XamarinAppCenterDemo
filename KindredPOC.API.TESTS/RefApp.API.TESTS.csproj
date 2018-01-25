@@ -95,9 +95,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Services\KindredPOC.API\KindredPOC.API.csproj">
-      <Project>{523b1f3b-beda-49f9-9314-57438009d81f}</Project>
-      <Name>KindredPOC.API</Name>
+    <ProjectReference Include="..\Services\KindredPOC.API\RefApp.API.csproj">
+      <Project>{D2238BDB-BA9C-4BE6-BFCD-509D17C9B0BC}</Project>
+      <Name>RefApp.API</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
