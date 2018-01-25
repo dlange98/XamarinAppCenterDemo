@@ -10,6 +10,9 @@ param(
 
  [string]
  $parametersFilePath = ".\parameters.json"
+
+ [string]
+ $ScriptPath = "C:\Projects\Scripts"
 )
 
 <#
@@ -30,15 +33,15 @@ Function RegisterRP {
 # Execution begins here
 #******************************************************************************
 $ErrorActionPreference = "Stop"
-Set-Location -Path C:\Users\estormann\Source\Repos\Ent_HiveReferenceArchitecture\Scripts
+Set-Location -Path $ScriptPath
 # sign in
 Write-Host "Logging in...";
-#Login-AzureRmAccount;
+Login-AzureRmAccount;
 
 # select subscription
 Write-Host "Selecting subscription '$subscriptionId'";
 #Select-AzureRmSubscription -SubscriptionID $subscriptionId;
-$SubName = "Dan Lange DevTest"
+$SubName = "Hive Dev"
 Select-AzureRmSubscription -SubscriptionName $SubName
 # Register RPs
 $resourceProviders = @("microsoft.insights","microsoft.sql","microsoft.storage","microsoft.web");
@@ -49,7 +52,7 @@ if($resourceProviders.length) {
     }
 }
 
-#$resourceGroupName = "ARMDeploymentTest33"
+$resourceGroupName = "ReferenceApp"
 #Create or check for existing resource group
 $resourceGroup = Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorAction SilentlyContinue
 if(!$resourceGroup)
