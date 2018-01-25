@@ -48,7 +48,6 @@ namespace Refapp.iOS.Services
                 result.Profile.GivenName = authResult.UserInfo.GivenName;
                 result.Profile.UniqueId = authResult.UserInfo.UniqueId;
 
-
                 return result;
             }
             catch (Exception ex)

@@ -7,6 +7,7 @@ using WindowsAzure.Messaging;
 using System;
 using Refapp.iOS.Configuration;
 using Xamarin.Forms;
+using Refapp.Configuration;
 
 
 // Comment
@@ -55,7 +56,7 @@ namespace Refapp.Services.iOS
 
         public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
         {
-            Hub = new SBNotificationHub(Constants.ListenConnectionString, Constants.NotificationHubName);
+            Hub = new SBNotificationHub(Settings.ListenConnectionString, Settings.NotificationHubName);
 
             Hub.UnregisterAllAsync(deviceToken, (error) => {
                 if (error != null)
