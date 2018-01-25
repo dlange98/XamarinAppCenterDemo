@@ -118,13 +118,13 @@ Perform the following steps to create a test run. See [Preparing Xamarin.UITests
 For IOS
 
 ```
-  appcenter test run uitest --app "Roland.Robertson/refapp.kindred.com" --devices 7f669125 --app-path ./iOS/RefApp.ipa  --test-series "launch-tests" --locale "en_US" --build-dir ./RefappUITest/bin/Debug/
+  appcenter test run uitest --app "cardinal/refapp.cardinal.com" --devices 7f669125 --app-path ./iOS/RefApp.ipa  --test-series "launch-tests" --locale "en_US" --build-dir ./RefappUITest/bin/Debug/
 ```
 
 For Android:
 
 ```
-appcenter test run uitest --app "Roland.Robertson/droid.refapp.kindred.com" --devices 0401170d --app-path pathToFile.apk  --test-series "launch-tests" --locale "en_US" --build-dir ./RefappUITest/bin/Debug/
+appcenter test run uitest --app "cardinal/droid.refapp.cardinal.com" --devices 0401170d --app-path pathToFile.apk  --test-series "launch-tests" --locale "en_US" --build-dir ./RefappUITest/bin/Debug/
 ```
 
 - Note the `--build-dir` in the RefApp solution is located at _./RefAppUITTest/bin/Debug/_
@@ -161,7 +161,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-            typeof(Analytics), typeof(Crashes));
+          typeof(Analytics), typeof(Crashes));
   ```
 
 The above example adds both Analytics and Crash detection to your application.
@@ -183,7 +183,7 @@ Follow the directions in the getting started tab of the App Center App project. 
 
   ```
   AppCenter.Start("29397e44-73e2-4fd1-a23f-0a32e118063f",
-            typeof(Analytics), typeof(Crashes));
+          typeof(Analytics), typeof(Crashes));
   ```
 
   ## Analytics
