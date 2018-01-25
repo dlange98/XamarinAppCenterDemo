@@ -75,7 +75,7 @@ The main project as well as the iOS and Android project follow this pattern. 95 
 
 The structure of the Android project has a few changes and additions to the generated code.
 
-- `MainActivity.cs` contains the following code that is need for the authentication mechanism:
+- `MainActivity.cs` contains the following code that is needed for the authentication mechanism:
 
   ```
   protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
