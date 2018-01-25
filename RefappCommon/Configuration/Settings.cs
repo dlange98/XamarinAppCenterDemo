@@ -15,8 +15,8 @@ namespace Refapp.Configuration
         public static string ReturnUrl = $"https://localhost";
 
         /* Settings for Notification Hub */
-        public const string ListenConnectionString = "Endpoint=sb://referenceappnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=68+L8EhRO1QenJlkoFi5DErckR5ylD1qrpL5A5OMQYY=";
-        public const string NotificationHubName = "ReferenceAppHub";
+        public const string ListenConnectionString = "Endpoint=sb://refapp-notificationhubnamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultListenSharedAccessSignature;SharedAccessKey=PYqCkXfadPr22MOdSdAV1Te4Yc8MgTAN8V5FSyCIUUY=";
+        public const string NotificationHubName = "RefApp-NotificationHub";
 
     }
 }
