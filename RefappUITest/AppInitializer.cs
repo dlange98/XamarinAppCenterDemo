@@ -37,7 +37,7 @@ namespace RefappUITest
                 // TODO: Update this path to point to your iOS app and uncomment the
                 // code if the app is not included in the solution.
                 // NOTE: Josh A, you must change the file location to match what is on your local machine
-                .InstalledApp("com.kindred.refapp") ///Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app
+                .InstalledApp("com.cardinal.refapp") ///Users/jaudibert/Documents/Cardinal/MobileRefXamarin/iOS/bin/iPhoneSimulator/Debug/device-builds/iphone9.1-10.3.1/Refapp.iOS.app
                 .DeviceIdentifier("15D70DB8-1BCD-400B-8A65-78BBE26273F2")
                 //.EnableLocalScreenshots()
                 //.Debug()
